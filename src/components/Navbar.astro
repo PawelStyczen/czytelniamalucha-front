@@ -1,0 +1,424 @@
+---
+const { showCta = true } = Astro.props;
+
+const navLinks = [
+  {
+    href: "/globalne-czytanie-dlaczego-warto/",
+    label: "Dlaczego warto",
+  },
+  { href: "/o-nas/", label: "O nas" },
+
+  { href: "/#oferta", label: "Oferta" },
+  { href: "/blog", label: "Blog" },
+  { href: "/#faq", label: "FAQ" },
+];
+---
+
+<header class="nav-shell">
+  <nav class="nav-desktop" aria-label="Nawigacja główna">
+    <div class="nav-desktop__inner">
+      <a href="/" class="nav-brand" aria-label="Czytelnia Malucha">
+        <img
+          src="/img/czytelnia-malucha-logo.svg"
+          alt="Logo Czytelnia Malucha"
+          class="nav-brand__logo"
+        />
+      </a>
+
+      <div class="nav-desktop__links">
+        {
+          navLinks.map((link) => (
+            <a href={link.href} class="nav-link">
+              {link.label}
+            </a>
+          ))
+        }
+      </div>
+
+      {
+        showCta && (
+          <a class="btn btn-primary nav-desktop__cta" href="/#oferta">
+            Zobacz ofertę
+          </a>
+        )
+      }
+    </div>
+  </nav>
+
+  <nav class="nav-mobile" aria-label="Nawigacja mobilna">
+    <div class="nav-mobile__backdrop" data-open="false"></div>
+
+    <div id="mobileNavMenu" class="nav-mobile__menu" data-open="false">
+      <div class="nav-mobile__menu-top">
+        <span class="nav-mobile__menu-title">Menu</span>
+        <button
+          class="nav-mobile__menu-close"
+          type="button"
+          data-nav-close
+          aria-label="Zamknij menu"
+        >
+          ✕
+        </button>
+      </div>
+
+      {
+        navLinks.map((link) => (
+          <a href={link.href} class="nav-mobile__menu-link">
+            {link.label}
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="nav-mobile__bar">
+      <a
+        href="/"
+        class="nav-brand nav-brand--mobile"
+        aria-label="Czytelnia Malucha"
+      >
+        <img
+          src="/img/czytelnia-malucha-logo.svg"
+          alt="Logo Czytelnia Malucha"
+          class="nav-brand__logo nav-brand__logo--mobile"
+        />
+      </a>
+
+      {
+        showCta && (
+          <a class="btn btn-primary nav-mobile__cta" href="/#oferta">
+            Zobacz ofertę
+          </a>
+        )
+      }
+
+      <button
+        id="mobileNavToggle"
+        class="nav-mobile__toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="mobileNavMenu"
+        aria-label="Otwórz menu"
+      >
+        <span class="nav-mobile__toggle-line"></span>
+        <span class="nav-mobile__toggle-line"></span>
+        <span class="nav-mobile__toggle-line"></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<style>
+  .nav-shell {
+    position: relative;
+    z-index: 9999;
+  }
+
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+  }
+
+  .nav-brand__logo {
+    display: block;
+    width: auto;
+    height: 48px;
+  }
+
+  .nav-link {
+    font-family: var(--font-sans);
+    padding: 8px 10px;
+    border-radius: 999px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.18s ease;
+  }
+
+  .nav-link:hover {
+    background: rgba(230, 230, 230, 0.7);
+  }
+
+  .nav-desktop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 10px 0;
+    background: rgba(255, 255, 255, 0.94);
+    border-bottom: 1px solid rgba(58, 58, 58, 0.12);
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-desktop__inner {
+    width: min(1100px, calc(100% - 32px));
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .nav-desktop__links {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-left: auto;
+  }
+
+  .nav-mobile {
+    display: none;
+  }
+
+  @media (max-width: 920px) {
+    .nav-desktop {
+      display: none;
+    }
+
+    .nav-mobile {
+      display: block;
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 0;
+      z-index: 9999;
+      pointer-events: none;
+    }
+
+    .nav-mobile__bar {
+      width: min(360px, 100%);
+      margin: 10px auto 0;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 1em;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(58, 58, 58, 0.12);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.12);
+      backdrop-filter: blur(12px);
+      pointer-events: auto;
+    }
+
+    .nav-brand__logo--mobile {
+      height: 40px;
+    }
+
+    .nav-mobile__cta {
+      justify-self: stretch;
+      justify-content: center;
+      min-width: 0;
+      white-space: nowrap;
+    }
+
+    .nav-mobile__toggle {
+      width: 46px;
+      height: 46px;
+      padding: 0;
+      border: 1px solid rgba(58, 58, 58, 0.12);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.86);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      flex: 0 0 auto;
+    }
+
+    .nav-mobile__toggle-line {
+      display: block;
+      width: 18px;
+      height: 2px;
+      border-radius: 999px;
+      background: var(--graphite);
+      transition:
+        transform 0.18s ease,
+        opacity 0.18s ease;
+    }
+
+    .nav-mobile__toggle[aria-expanded="true"]
+      .nav-mobile__toggle-line:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .nav-mobile__toggle[aria-expanded="true"]
+      .nav-mobile__toggle-line:nth-child(2) {
+      opacity: 0;
+    }
+
+    .nav-mobile__toggle[aria-expanded="true"]
+      .nav-mobile__toggle-line:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .nav-mobile__menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      display: flex;
+      width: min(360px, calc(100vw - 150px));
+      height: 100dvh;
+      flex-direction: column;
+      gap: 0.35rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.98);
+      border-left: 1px solid rgba(58, 58, 58, 0.08);
+      box-shadow: -18px 0 45px rgba(0, 0, 0, 0.08);
+      backdrop-filter: blur(12px);
+      transform: translateX(100%);
+      opacity: 0;
+      visibility: hidden;
+      transition:
+        transform 0.24s ease,
+        opacity 0.24s ease,
+        visibility 0.24s ease;
+      pointer-events: auto;
+      z-index: 999;
+    }
+
+    .nav-mobile__menu[data-open="true"] {
+      transform: translateX(0);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .nav-mobile__backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.28);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition:
+        opacity 0.24s ease,
+        visibility 0.24s ease;
+    }
+
+    .nav-mobile__backdrop[data-open="true"] {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .nav-mobile__menu-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(58, 58, 58, 0.08);
+    }
+
+    .nav-mobile__menu-title {
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-mobile__menu-close {
+      width: 42px;
+      height: 42px;
+      padding: 0;
+      border: 1px solid rgba(58, 58, 58, 0.12);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.86);
+      cursor: pointer;
+    }
+
+    .nav-mobile__menu-link {
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(244, 239, 234, 0.46);
+      font-family: var(--font-sans);
+      font-weight: 600;
+      text-decoration: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .nav-mobile__bar {
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      padding: 9px 20px;
+      margin-top: 8px;
+    }
+
+    .nav-brand__logo--mobile {
+      height: 36px;
+    }
+
+    .nav-mobile__cta {
+      font-size: 0.95rem;
+      padding: 0.85rem 0.95rem;
+    }
+  }
+</style>
+
+<script is:inline>
+  const mobileNavToggle = document.getElementById("mobileNavToggle");
+  const mobileNavMenu = document.getElementById("mobileNavMenu");
+  const mobileNavBackdrop = document.querySelector(".nav-mobile__backdrop");
+
+  function closeMobileNavMenu() {
+    if (!mobileNavToggle || !mobileNavMenu || !mobileNavBackdrop) return;
+    mobileNavToggle.setAttribute("aria-expanded", "false");
+    mobileNavMenu.setAttribute("data-open", "false");
+    mobileNavBackdrop.setAttribute("data-open", "false");
+    document.body.style.overflow = "";
+  }
+
+  function toggleMobileNavMenu() {
+    if (!mobileNavToggle || !mobileNavMenu || !mobileNavBackdrop) return;
+    const isOpen = mobileNavToggle.getAttribute("aria-expanded") === "true";
+    mobileNavToggle.setAttribute("aria-expanded", String(!isOpen));
+    mobileNavMenu.setAttribute("data-open", String(!isOpen));
+    mobileNavBackdrop.setAttribute("data-open", String(!isOpen));
+    document.body.style.overflow = isOpen ? "" : "hidden";
+  }
+
+  mobileNavToggle?.addEventListener("click", () => {
+    toggleMobileNavMenu();
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!mobileNavToggle || !mobileNavMenu || !mobileNavBackdrop) return;
+    const target = event.target;
+    if (!(target instanceof Node)) return;
+
+    const clickedInsideMenu = mobileNavMenu.contains(target);
+    const clickedToggle = mobileNavToggle.contains(target);
+    const clickedBackdrop =
+      target instanceof Element && target.closest(".nav-mobile__backdrop");
+    const clickedClose =
+      target instanceof Element && target.closest("[data-nav-close]");
+
+    if (clickedBackdrop || clickedClose) {
+      closeMobileNavMenu();
+      return;
+    }
+
+    if (!clickedInsideMenu && !clickedToggle) {
+      closeMobileNavMenu();
+    }
+
+    if (target instanceof Element && target.closest(".nav-mobile__menu-link")) {
+      closeMobileNavMenu();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeMobileNavMenu();
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 920) {
+      closeMobileNavMenu();
+    }
+  });
+</script>

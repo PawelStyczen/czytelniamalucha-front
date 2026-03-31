@@ -1,0 +1,50 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { publicSite } from "../config/publicSite";
+const email = "";
+---
+
+<BaseLayout
+  title="Dziękujemy — Czytelnia Malucha"
+  description="Płatność została rozpoczęta lub zakończona."
+>
+  <main class="container" style="padding:48px 0;max-width:860px;">
+    <div class="card" style="padding:22px;">
+      <div class="kicker">Dziękujemy</div>
+      <h1 class="h2" style="margin-top:8px;">
+        Jeśli płatność została potwierdzona, link do PDF wyślemy e-mailem.
+      </h1>
+
+      <p class="muted" style="max-width:70ch;">
+        Zwykle przychodzi w ciągu kilku minut. Link będzie ważny 12 godzin.
+      </p>
+
+      <div
+        id="who"
+        class="card"
+        style="padding:14px;margin-top:16px;background: rgba(244,239,234,.9);border:1px solid rgba(58,58,58,.10);"
+      >
+        <p style="margin:0;font-weight:700;">Adres e-mail:</p>
+        <p class="muted" id="email" style="margin:6px 0 0;">—</p>
+        <p class="muted small" style="margin:10px 0 0;">
+          Jeśli podałeś zły e-mail, wróć na stronę główną i zrób zakup ponownie.
+        </p>
+      </div>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;">
+        <a class="btn btn-primary" href="/">Wróć na stronę</a>
+        <a class="btn btn-secondary" href={publicSite.contactMailto}>Napisz do nas</a>
+      </div>
+
+      <p class="muted small" style="margin-top:14px;">
+        Tip: sprawdź też spam/oferty.
+      </p>
+    </div>
+  </main>
+
+  <script is:inline>
+    const el = document.getElementById("email");
+    const email = localStorage.getItem("cm_email");
+    if (el) el.textContent = email || "—";
+  </script>
+</BaseLayout>

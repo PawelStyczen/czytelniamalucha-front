@@ -1,16 +1,132 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import LatestPosts from "../components/LatestPosts.astro";
+import Hero from "../components/Hero.astro";
+import GlobalReadingIntro from "../components/GlobalReadingIntro.astro";
+import GlobalReadingWhyWorth from "../components/GlobalReadingWhyWorth.astro";
+import OfferSection from "../components/OfferSection.astro";
 
+const sections = {
+  why: [
+    {
+      icon: "⚡",
+      title: "Szybkie sukcesy = większa motywacja",
+      text: "Dziecko szybko „czyta” pierwsze słowa, co buduje pewność siebie i chęć do dalszej nauki.",
+    },
+    {
+      icon: "🗣️",
+      title: "Wspiera rozwój mowy i słownictwa",
+      text: "Nowe słowa łatwiej wchodzą do codziennego języka, a dziecko lepiej je rozumie.",
+    },
+    {
+      icon: "🧠",
+      title: "Trenuje koncentrację i pamięć",
+      text: "Krótkie ćwiczenia (5–10 minut) uczą skupienia, bez przeciążania.",
+    },
+    {
+      icon: "🎲",
+      title: "To nauka przez zabawę",
+      text: "Karty, etykiety i proste gry sprawiają, że dziecko uczy się naturalnie — w domu i w ruchu.",
+    },
+    {
+      icon: "🌿",
+      title: "Dobre także dla dzieci, które nie lubią „zwykłej nauki”",
+      text: "Metoda jest łagodna, bez presji, dopasowana do tempa dziecka.",
+    },
+  ],
+  inside: [
+    {
+      title: "Estetyczne karty A4",
+      text: "Czytelne, proste wizualnie materiały do druku w domu.",
+    },
+    {
+      title: "Plan pracy (rodzic)",
+      text: "Krok po kroku: jak zacząć i jak utrwalać bez presji.",
+    },
+    {
+      title: "Zabawy utrwalające",
+      text: "Kilka prostych aktywności, żeby utrzymać zainteresowanie.",
+    },
+  ],
+  faq: [
+    {
+      q: "Czy muszę mieć konto, żeby kupić?",
+      a: "Nie. Kupujesz podając e-mail, a po płatności dostajesz link do pobrania.",
+    },
+    {
+      q: "Czy to jest zgodne z Montessori?",
+      a: "Materiały są inspirowane podejściem Montessori: prostota, konkret, krótka i regularna praca.",
+    },
+    {
+      q: "Na jakim papierze drukować?",
+      a: "Na start wystarczy zwykły papier. Dla trwałości: grubszy papier lub laminowanie.",
+    },
+  ],
+};
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="Czytelnia Malucha — Czytanie globalne Montessori"
+  description="Materiały PDF do czytania globalnego: gotowe karty i instrukcja pracy z dzieckiem."
+>
+  <main>
+    <!-- HERO -->
+    <Hero
+      title="Pomóż dziecku zakochać się w czytaniu."
+      lead="Materiały PDF do czytania globalnego inspirowane Montessori — spokojne, estetyczne i gotowe do pracy z dzieckiem w domu."
+      primaryHref="#oferta"
+      primaryLabel="Zobacz zestawy"
+      secondaryHref="/blog"
+      secondaryLabel="Przeczytaj blog"
+    />
+
+    <GlobalReadingIntro />
+
+    <GlobalReadingWhyWorth />
+
+    <LatestPosts />
+
+    <OfferSection />
+
+    <!-- FAQ -->
+    <section class="section container" id="faq">
+      <div class="kicker">FAQ</div>
+      <h2 class="h2">Najczęstsze pytania</h2>
+
+      <div class="grid" style="margin-top:14px;">
+        {
+          sections.faq.map((item) => (
+            <details class="card" style="padding:16px;">
+              <summary style="cursor:pointer;font-weight:700;">
+                {item.q}
+              </summary>
+              <p class="muted" style="margin:10px 0 0;">
+                {item.a}
+              </p>
+            </details>
+          ))
+        }
+      </div>
+    </section>
+  </main>
+
+  <style is:global>
+    .why-card__top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .why-ico {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      background: rgba(107, 143, 113, 0.14);
+      border: 1px solid rgba(107, 143, 113, 0.22);
+    }
+  </style>
+</BaseLayout>

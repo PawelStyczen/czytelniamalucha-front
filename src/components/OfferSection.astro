@@ -1,0 +1,39 @@
+---
+import ProductCard from "./ProductCard.astro";
+import { products } from "../data/products";
+---
+
+<section class="offer-section section container" id="oferta">
+  <div class="kicker">Oferta</div>
+  <h2 class="h2 offer-section__title">Wybierz zestaw PDF</h2>
+  <p class="muted offer-section__lead">
+    Kliknij kartę, żeby zobaczyć szczegóły i podgląd. Kupno dalej przez PayU.
+  </p>
+
+  <div class="offer-section__grid">
+    {products.map((product) => <ProductCard product={product} />)}
+  </div>
+</section>
+
+<style>
+  .offer-section__title {
+    margin-bottom: 0.75rem;
+  }
+
+  .offer-section__lead {
+    max-width: 75ch;
+    margin: 0;
+  }
+
+  .offer-section__grid {
+    display: grid;
+    gap: 18px;
+    margin-top: 18px;
+  }
+
+  @media (min-width: 920px) {
+    .offer-section__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+</style>

@@ -1,0 +1,28 @@
+---
+import { publicSite } from "../config/publicSite";
+---
+
+<footer class="footer" id="footer">
+  <div class="container">
+    <div class="grid grid-2">
+      <div>
+        <strong>CzytelniaMalucha</strong>
+        <p class="muted small" style="margin:8px 0 0;">
+          Materiały edukacyjne do pracy z dzieckiem. Bez presji, z uważnością.
+        </p>
+      </div>
+      <div
+        class="muted small"
+        style="display:flex;gap:12px;justify-content:flex-end;flex-wrap:wrap;"
+      >
+        <a href="/regulamin/" class="pill">Regulamin</a>
+        <a href="/polityka-prywatnosci/" class="pill">Polityka prywatności</a>
+        <a href={publicSite.contactMailto} class="pill">{publicSite.contactEmail}</a>
+      </div>
+    </div>
+
+    <p class="muted small" style="margin:18px 0 0;">
+      © {new Date().getFullYear()} CzytelniaMalucha
+    </p>
+  </div>
+</footer>

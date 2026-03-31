@@ -1,0 +1,164 @@
+---
+const {
+  title = "Pomóż dziecku zakochać się w czytaniu.",
+  lead = "Spokojne i estetyczne materiały PDF do czytania globalnego inspirowane Montessori.",
+  primaryHref = "#oferta",
+  primaryLabel = "Zobacz zestawy",
+} = Astro.props;
+---
+
+<section class="hero" id="hero">
+  <div class="container hero__container">
+    <div class="hero__grid">
+      <div class="hero__content">
+        <h1 class="hero__title">{title}</h1>
+        <p class="hero__lead">{lead}</p>
+
+        <div class="hero__actions">
+          <a href={primaryHref} class="btn btn-primary">{primaryLabel}</a>
+        </div>
+      </div>
+
+      <div class="hero__visual" aria-hidden="true">
+        <img
+          src="/img/hero-img.png"
+          alt=""
+          class="hero__logo"
+          loading="eager"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+
+    background:
+      radial-gradient(
+        circle at top left,
+        rgba(107, 143, 113, 0.2),
+        transparent 35%
+      ),
+      linear-gradient(#f9f4c0, rgba(255, 255, 255, 0));
+  }
+
+  /* .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("/img/IMG_2965.png") center / cover no-repeat;
+    filter: blur(6px);
+    transform: scale(1.05);
+    transform-origin: top right;
+    z-index: 0;
+  } */
+
+  .hero__container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+  }
+
+  .hero__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 1rem;
+    min-height: calc(100svh - 10rem);
+    width: 70%;
+    margin: 0 auto;
+  }
+
+  .hero__content {
+    max-width: 34rem;
+
+    padding: 1rem 1rem;
+  }
+
+  .hero__title {
+    margin: 0;
+    font-family: var(--font-sans);
+    font-size: 3rem;
+    line-height: 0.96;
+    letter-spacing: -0.05em;
+    font-weight: 800;
+    text-wrap: balance;
+  }
+
+  .hero__lead {
+    margin: 1.5rem 0 0;
+    max-width: 34ch;
+    font-family: var(--font-serif);
+    font-size: 1.12rem;
+    line-height: 1.8;
+    color: rgba(58, 58, 58, 0.82);
+  }
+
+  .hero__actions {
+    margin-top: 2rem;
+  }
+
+  .hero__visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero__logo {
+    width: min(100%, 68rem);
+    height: auto;
+    display: block;
+    object-fit: contain;
+  }
+
+  @media (max-width: 920px) {
+    .hero {
+      min-height: auto;
+      padding: 6.5rem 0 2.5rem;
+    }
+
+    .hero__grid {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+      min-height: auto;
+    }
+
+    .hero__content {
+      max-width: none;
+    }
+
+    .hero__title {
+      font-size: clamp(2.6rem, 11vw, 4.3rem);
+      max-width: 12ch;
+    }
+
+    .hero__lead {
+      max-width: 42ch;
+    }
+
+    .hero__visual {
+      order: -1;
+    }
+
+    .hero__logo {
+      width: min(100%, 22rem);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero__lead {
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .hero__actions :global(.btn) {
+      width: 100%;
+    }
+  }
+</style>

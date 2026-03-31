@@ -1,0 +1,114 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Content, {
+  frontmatter,
+} from "../content/pages/globalne-czytanie-dlaczego-warto.md";
+---
+
+<BaseLayout title={frontmatter.title} description={frontmatter.description}>
+  <main class="info-page section">
+    <div class="container">
+      <article class="info-page__article card">
+        <nav aria-label="Breadcrumb" class="info-page__breadcrumbs">
+          <a href="/" class="info-page__crumb-link">Czytelnia Malucha</a>
+          <span aria-hidden="true" class="info-page__crumb-sep">/</span>
+          <span class="info-page__crumb-current">{frontmatter.title}</span>
+        </nav>
+
+        <div class="kicker">Czytanie globalne</div>
+        <h1 class="h1 info-page__title">{frontmatter.title}</h1>
+        <p class="muted info-page__lead">{frontmatter.description}</p>
+
+        <div class="info-page__content">
+          <Content />
+        </div>
+      </article>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .info-page {
+    padding-top: 5rem;
+  }
+
+  .info-page__article {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 28px;
+    background: rgba(255, 250, 244, 0.92);
+    border: 1px solid rgba(58, 58, 58, 0.08);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.05);
+  }
+
+  .info-page__breadcrumbs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    color: rgba(58, 58, 58, 0.65);
+  }
+
+  .info-page__crumb-link {
+    color: #6b8f71;
+    text-decoration: none;
+  }
+
+  .info-page__crumb-link:hover {
+    text-decoration: underline;
+  }
+
+  .info-page__crumb-sep {
+    color: rgba(58, 58, 58, 0.35);
+  }
+
+  .info-page__crumb-current {
+    color: rgba(58, 58, 58, 0.78);
+    font-weight: 700;
+  }
+
+  .info-page__title {
+    margin-bottom: 0.75rem;
+  }
+
+  .info-page__lead {
+    margin: 0 0 1.8rem;
+    max-width: 60ch;
+    line-height: 1.75;
+  }
+
+  .info-page__content {
+    font-size: 1.05rem;
+    line-height: 1.85;
+  }
+
+  .info-page__content :global(h2),
+  .info-page__content :global(h3) {
+    margin-top: 2rem;
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+  }
+
+  .info-page__content :global(p),
+  .info-page__content :global(ul),
+  .info-page__content :global(ol) {
+    margin: 0 0 1rem;
+  }
+
+  .info-page__content :global(ul),
+  .info-page__content :global(ol) {
+    padding-left: 1.25rem;
+  }
+
+  @media (max-width: 640px) {
+    .info-page {
+      padding-top: 4.3rem;
+    }
+
+    .info-page__article {
+      padding: 22px 18px;
+    }
+  }
+</style>

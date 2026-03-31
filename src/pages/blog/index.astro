@@ -1,0 +1,103 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BlogPostCard from "../../components/BlogPostCard.astro";
+import { getPublishedBlogPosts } from "../../utils/blog";
+
+const publishedPosts = await getPublishedBlogPosts();
+---
+
+<BaseLayout
+  title="Blog — Czytelnia Malucha"
+  description="Artykuły o czytaniu globalnym, Montessori i wspieraniu rozwoju dziecka."
+>
+  <main class="blog-page">
+    <section class="blog-hero container">
+      <div class="blog-hero__inner">
+        <div class="kicker">Blog</div>
+        <h1 class="blog-title">Blog</h1>
+        <p class="blog-lead">
+          Praktyczne treści o czytaniu globalnym, Montessori i wspieraniu
+          rozwoju dziecka w domu.
+        </p>
+      </div>
+    </section>
+
+    <section class="container blog-list-section">
+      {
+        publishedPosts.length > 0 ? (
+          <div class="blog-grid">
+            {publishedPosts.map((post) => (
+              <BlogPostCard post={post} headingTag="h2" />
+            ))}
+          </div>
+        ) : (
+          <div class="blog-empty card">
+            <h2>Wkrótce pojawią się pierwsze artykuły</h2>
+            <p class="muted">
+              Blog jest już gotowy, teraz wystarczy dodać pierwszy wpis.
+            </p>
+          </div>
+        )
+      }
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .blog-page {
+    padding: 3rem 0 4rem;
+  }
+
+  .blog-hero {
+    margin-bottom: 2rem;
+  }
+
+  .blog-hero__inner {
+    max-width: 760px;
+  }
+
+  .blog-title {
+    margin: 0.35rem 0 1rem;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.1;
+  }
+
+  .blog-lead {
+    margin: 0;
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: rgba(58, 58, 58, 0.8);
+  }
+
+  .blog-list-section {
+    margin-top: 1.5rem;
+  }
+
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .blog-empty {
+    padding: 1.5rem;
+    border-radius: 22px;
+    background: #fff;
+  }
+
+  @media (max-width: 980px) {
+    .blog-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .blog-page {
+      padding: 2rem 0 3rem;
+    }
+
+    .blog-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

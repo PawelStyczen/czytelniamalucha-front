@@ -1,0 +1,149 @@
+---
+const storageKey = "cm_cookie_notice_ack_v1";
+---
+
+<div class="cookie-consent" data-cookie-consent>
+  <div class="cookie-consent__panel card paper-texture">
+    <div class="cookie-consent__content">
+      <p class="cookie-consent__kicker">Prywatność i cookies</p>
+      <p class="cookie-consent__text">
+        Serwis wykorzystuje wyłącznie niezbędne pliki cookies i podobne
+        technologie, takie jak <code>localStorage</code>, aby poprawnie
+        działać, obsłużyć zakup PDF, zapamiętać status tego komunikatu oraz
+        pokazać informacje związane z płatnością PayU. Obecnie nie używamy
+        cookies analitycznych ani marketingowych.
+      </p>
+    </div>
+
+    <div class="cookie-consent__actions">
+      <a href="/polityka-prywatnosci/" class="btn btn-secondary">Polityka prywatności</a>
+      <button type="button" class="btn btn-primary" data-cookie-accept>
+        Akceptuję
+      </button>
+    </div>
+  </div>
+</div>
+
+<script is:inline define:vars={{ storageKey }}>
+  const banner = document.querySelector("[data-cookie-consent]");
+  const acceptButton = document.querySelector("[data-cookie-accept]");
+
+  function hideBanner() {
+    if (!banner) return;
+    banner.setAttribute("hidden", "");
+  }
+
+  function showBanner() {
+    if (!banner) return;
+    banner.removeAttribute("hidden");
+  }
+
+  function hasAcknowledged() {
+    try {
+      return window.localStorage.getItem(storageKey) === "accepted";
+    } catch {
+      return false;
+    }
+  }
+
+  if (hasAcknowledged()) {
+    hideBanner();
+  } else {
+    showBanner();
+  }
+
+  acceptButton?.addEventListener("click", () => {
+    try {
+      window.localStorage.setItem(storageKey, "accepted");
+    } catch {}
+
+    hideBanner();
+  });
+</script>
+
+<style>
+  .cookie-consent {
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    z-index: 9998;
+  }
+
+  .cookie-consent[hidden] {
+    display: none;
+  }
+
+  .cookie-consent__panel {
+    width: min(920px, 100%);
+    margin: 0 auto;
+    padding: 1rem 1rem 1rem 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem 1.25rem;
+    background: rgba(255, 250, 244, 0.96);
+    border: 1px solid rgba(58, 58, 58, 0.12);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    backdrop-filter: blur(12px);
+  }
+
+  .cookie-consent__content {
+    max-width: 64ch;
+  }
+
+  .cookie-consent__kicker {
+    margin: 0 0 0.35rem;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.82;
+  }
+
+  .cookie-consent__text {
+    margin: 0;
+    font-family: var(--font-serif);
+    line-height: 1.7;
+    color: rgba(58, 58, 58, 0.84);
+  }
+
+  .cookie-consent__text code {
+    font-family: var(--font-sans);
+    font-size: 0.95em;
+    padding: 0.08rem 0.38rem;
+    background: rgba(107, 143, 113, 0.12);
+    border-radius: 999px;
+  }
+
+  .cookie-consent__actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    flex: 0 0 auto;
+  }
+
+  @media (max-width: 780px) {
+    .cookie-consent {
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+    }
+
+    .cookie-consent__panel {
+      padding: 1rem;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .cookie-consent__actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .cookie-consent__actions :global(.btn) {
+      width: 100%;
+    }
+  }
+</style>

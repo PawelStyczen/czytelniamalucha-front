@@ -1,0 +1,135 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection(
+    "blog",
+    ({ data }: { data: any }) => !data.draft,
+  );
+
+  return posts.map((post: any) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props as { post: any };
+const { Content } = await render(post);
+---
+
+<BaseLayout
+  title={`${post.data.title} — Czytelnia Malucha`}
+  description={post.data.description}
+>
+  <main class="section container">
+    <article class="card" style="padding:28px;max-width:1024px;margin:0 auto;">
+      <div class="blog-hero-image">
+        <img
+          src={post.data.image}
+          alt={post.data.title}
+          class="blog-hero-image__img"
+        />
+      </div>
+
+      <nav aria-label="Breadcrumb" class="blog-breadcrumbs">
+        <a href="/" class="blog-breadcrumbs__link">Czytelnia Malucha</a>
+        <span aria-hidden="true" class="blog-breadcrumbs__sep">/</span>
+        <a href="/blog/" class="blog-breadcrumbs__link">Blog</a>
+        <span aria-hidden="true" class="blog-breadcrumbs__sep">/</span>
+        <span class="blog-breadcrumbs__current">{post.data.title}</span>
+      </nav>
+
+      <div class="muted small">
+        {post.data.pubDate.toLocaleDateString("pl-PL")}
+      </div>
+
+      <h1 class="h1" style="margin-top:10px;">{post.data.title}</h1>
+      <p class="muted" style="margin-bottom:24px;">
+        {post.data.description}
+      </p>
+
+      <div class="blog-content">
+        <Content />
+      </div>
+    </article>
+  </main>
+</BaseLayout>
+
+<style is:global>
+  .blog-breadcrumbs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: rgba(58, 58, 58, 0.65);
+    background-color: var(--wood);
+    padding: 0.25rem 0.75rem;
+    border-radius: 25px;
+  }
+
+  .blog-breadcrumbs__link {
+    color: #6b8f71;
+    text-decoration: none;
+    font-weight: 400;
+  }
+
+  .blog-breadcrumbs__link:hover {
+    text-decoration: underline;
+  }
+
+  .blog-breadcrumbs__sep {
+    color: rgba(58, 58, 58, 0.35);
+  }
+
+  .blog-breadcrumbs__current {
+    color: rgba(58, 58, 58, 0.78);
+    font-weight: 700;
+  }
+
+  .blog-hero-image {
+    margin: -28px -28px 1.5rem;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+
+    background: rgba(107, 143, 113, 0.08);
+  }
+
+  .blog-hero-image__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .blog-content {
+    line-height: 1.8;
+    font-size: 1.05rem;
+  }
+
+  .blog-content h2,
+  .blog-content h3 {
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .blog-content p,
+  .blog-content ul,
+  .blog-content ol {
+    margin: 0 0 1rem;
+  }
+
+  .blog-content ul,
+  .blog-content ol {
+    padding-left: 1.25rem;
+  }
+
+  @media (max-width: 640px) {
+    .blog-hero-image {
+      margin: -28px -28px 1.25rem;
+      aspect-ratio: 4 / 3;
+    }
+  }
+</style>

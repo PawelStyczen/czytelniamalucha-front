@@ -1,0 +1,144 @@
+---
+import type { Product } from "../data/products";
+import { getProductHref } from "../data/products";
+
+const { product } = Astro.props as { product: Product };
+const productHref = getProductHref(product.id);
+---
+
+<a
+  href={productHref}
+  class="pcard paper-shadow"
+  aria-label={`${product.name} — przejdź do szczegółów`}
+>
+  <div class="pcard__surface paper-texture">
+    <div class="pcard__media">
+      <div
+        class="pcard__bg"
+        style={`background-image:url('${product.image}')`}
+      >
+      </div>
+    </div>
+
+    <div class="pcard__overlay">
+      <div class="pcard__top">
+        <div class="pcard__price">{product.priceLabel}</div>
+      </div>
+
+      <h3 class="pcard__title">{product.name}</h3>
+
+      <p class="pcard__hint">szczegóły</p>
+    </div>
+  </div>
+</a>
+
+<style is:global>
+  .pcard {
+    display: block;
+    height: 100%;
+    min-height: 460px;
+    cursor: pointer;
+  }
+
+  .pcard__surface {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    background: rgba(255, 250, 244, 0.88);
+    border: 1px solid rgba(58, 58, 58, 0.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    transition:
+      box-shadow 0.18s ease,
+      border-color 0.18s ease;
+  }
+
+  .pcard__media {
+    flex: 0 0 250px;
+    min-height: 250px;
+    background: rgba(244, 239, 234, 0.6);
+  }
+
+  .pcard__bg {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.02);
+    transition: transform 0.25s ease;
+  }
+
+  .pcard__overlay {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 16px;
+    gap: 10px;
+    background: rgba(255, 250, 244, 0.82);
+    backdrop-filter: blur(15px);
+    border-top: 5px solid rgb(223, 126, 29);
+    min-height: 210px;
+  }
+
+  @media (max-width: 700px) {
+    .pcard {
+      min-height: 440px;
+    }
+
+    .pcard__media {
+      flex-basis: 220px;
+      min-height: 220px;
+    }
+  }
+
+  .pcard__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .pcard__price {
+    font-weight: 800;
+    font-size: 1.15rem;
+  }
+
+  .pcard__title {
+    margin: 0;
+    font-size: 1.08rem;
+    line-height: 1.25;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .pcard__sub {
+    margin: 0;
+    font-size: 0.96rem;
+  }
+
+  .pcard__list {
+    margin: 0;
+  }
+
+  .pcard__hint {
+    margin: auto 0 0;
+    padding-top: 4px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #6b8f71;
+    line-height: 1.4;
+  }
+
+  .pcard__hint::after {
+    content: " ->";
+    margin-left: 0.25rem;
+  }
+
+  .pcard:hover .pcard__surface {
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+    border-color: rgba(107, 143, 113, 0.22);
+  }
+</style>

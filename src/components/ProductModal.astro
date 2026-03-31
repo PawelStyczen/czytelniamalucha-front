@@ -1,0 +1,227 @@
+---
+/**
+ * ProductModal: 1 modal obsługujący wszystkie produkty.
+ * Dane produktu lecą w data-product jako JSON (string).
+ *
+ * W products dodaj: details: { inside: [...], images: [...] }
+ */
+---
+
+<div id="productModal" class="pmodal" aria-hidden="true">
+  <div class="pmodal__backdrop" data-pclose></div>
+
+  <div
+    class="pmodal__panel card"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="pmodalTitle"
+  >
+    <div class="pmodal__top">
+      <div>
+        <div class="kicker">Szczegóły zestawu</div>
+        <h3 id="pmodalTitle" style="margin:6px 0 0;">Zestaw PDF</h3>
+        <p id="pmodalSub" class="muted" style="margin:8px 0 0;"></p>
+      </div>
+
+      <button class="pmodal__x" type="button" data-pclose aria-label="Zamknij"
+        >✕</button
+      >
+    </div>
+
+    <div class="pmodal__meta">
+      <span id="pmodalBadge" class="pill"
+        ><span class="icon-dot" aria-hidden="true"></span>
+      </span>
+      <span id="pmodalPrice" class="price" style="font-size:1.15rem;"></span>
+    </div>
+
+    <div class="pmodal__grid">
+      <div>
+        <div class="pill" style="margin-bottom:10px;">
+          <span class="icon-dot" aria-hidden="true"></span> Co jest w środku?
+        </div>
+        <ul id="pmodalInside" class="list" style="margin:0;"></ul>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;">
+          <button id="pmodalBuy" class="btn btn-primary" type="button">
+            Kup
+          </button>
+          <button class="btn btn-secondary" type="button" data-pclose>
+            Zamknij
+          </button>
+        </div>
+
+        <p class="muted small" style="margin:12px 0 0;">
+          Po kliknięciu „Kup” otworzy się modal płatności (ten sam co teraz).
+        </p>
+      </div>
+
+      <div>
+        <div class="pill" style="margin-bottom:10px;">
+          <span class="icon-dot" aria-hidden="true"></span> Podgląd (zdjęcia)
+        </div>
+
+        <div id="pmodalImages" class="pmodal__images"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style is:global>
+  .pmodal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    z-index: 10000;
+  }
+  .pmodal[aria-hidden="false"] {
+    display: block;
+  }
+  .pmodal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.42);
+    backdrop-filter: blur(2px);
+  }
+  .pmodal__panel {
+    position: relative;
+    width: min(980px, calc(100% - 24px));
+    margin: 70px auto 24px;
+    padding: 18px;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  }
+  .pmodal__top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .pmodal__x {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    border: 1px solid rgba(58, 58, 58, 0.18);
+    background: #fff;
+    cursor: pointer;
+  }
+  .pmodal__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(58, 58, 58, 0.1);
+  }
+  .pmodal__grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 18px;
+    margin-top: 16px;
+  }
+  @media (max-width: 860px) {
+    .pmodal__panel {
+      margin-top: 60px;
+    }
+    .pmodal__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .pmodal__images {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .pmodal__images img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 14px;
+    border: 1px solid rgba(58, 58, 58, 0.12);
+    background: rgba(244, 239, 234, 0.9);
+  }
+</style>
+
+<script is:inline>
+  const pmodal = document.getElementById("productModal");
+  const titleEl = document.getElementById("pmodalTitle");
+  const subEl = document.getElementById("pmodalSub");
+  const badgeEl = document.getElementById("pmodalBadge");
+  const priceEl = document.getElementById("pmodalPrice");
+  const insideEl = document.getElementById("pmodalInside");
+  const imagesEl = document.getElementById("pmodalImages");
+  const buyBtn = document.getElementById("pmodalBuy");
+
+  function openProductModal(product) {
+    if (!pmodal) return;
+
+    titleEl.textContent = product.name || "Zestaw PDF";
+    subEl.textContent = product.subtitle || "";
+    badgeEl.innerHTML = `<span class="icon-dot" aria-hidden="true"></span> ${product.badge || "Zestaw"}`;
+    priceEl.textContent = product.priceLabel || "";
+
+    // inside list
+    insideEl.innerHTML = "";
+    const inside = product.details?.inside || [];
+    inside.forEach((it) => {
+      const li = document.createElement("li");
+      li.textContent = it;
+      insideEl.appendChild(li);
+    });
+
+    // images
+    imagesEl.innerHTML = "";
+    const imgs = product.details?.images || [];
+    imgs.forEach((src) => {
+      const img = document.createElement("img");
+      img.src = src;
+      img.alt = product.name || "Podgląd PDF";
+      img.loading = "lazy";
+      imagesEl.appendChild(img);
+    });
+
+    // buy button -> otwiera checkout modal (u Ciebie to data-checkout)
+    buyBtn.dataset.checkout = product.id;
+    buyBtn.textContent = `Kup • ${product.priceLabel || ""}`.trim();
+
+    pmodal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeProductModal() {
+    if (!pmodal) return;
+    pmodal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+
+  // klik w kartę: data-product
+  document.addEventListener("click", (e) => {
+    const card = e.target.closest("[data-product]");
+    if (!card) return;
+
+    // jeśli kliknęliśmy w przycisk Kup na karcie, nie otwieraj product modal
+    if (e.target.closest("[data-checkout]")) return;
+
+    e.preventDefault();
+
+    try {
+      const raw = card.getAttribute("data-product");
+      const product = JSON.parse(raw);
+      openProductModal(product);
+    } catch (err) {
+      console.error("Bad data-product JSON", err);
+    }
+  });
+
+  // close handlers
+  document.addEventListener("click", (e) => {
+    if (e.target && e.target.matches("[data-pclose]")) closeProductModal();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && pmodal?.getAttribute("aria-hidden") === "false")
+      closeProductModal();
+  });
+</script>

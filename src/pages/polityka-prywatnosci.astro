@@ -1,0 +1,265 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import LegalPageLayout from "../components/LegalPageLayout.astro";
+import { publicSite } from "../config/publicSite";
+---
+
+<BaseLayout
+  title="Polityka prywatności - Czytelnia Malucha"
+  description="Zasady przetwarzania danych osobowych oraz wykorzystywania cookies i podobnych technologii w serwisie Czytelnia Malucha."
+>
+  <LegalPageLayout
+    title="Polityka prywatności"
+    description="Zasady przetwarzania danych osobowych oraz wykorzystywania cookies i podobnych technologii w serwisie Czytelnia Malucha."
+  >
+    <p><strong>Data obowiązywania:</strong> 27 marca 2026 r.</p>
+
+    <p>
+      Niniejsza Polityka prywatności określa zasady przetwarzania danych
+      osobowych użytkowników serwisu <strong>{publicSite.siteHost}</strong>, za
+      pośrednictwem którego sprzedawane są materiały cyfrowe w formacie PDF
+      dotyczące globalnego czytania.
+    </p>
+
+    <h2>1. Administrator danych osobowych</h2>
+
+    <p>Administratorem danych osobowych jest:</p>
+
+    <p>
+      <strong>{publicSite.businessName}</strong><br />
+      <strong>NIP:</strong> {publicSite.businessNip}<br />
+      <strong>adres do doręczeń:</strong> {publicSite.businessAddress}<br />
+      <strong>e-mail:</strong> {publicSite.contactEmail}
+    </p>
+
+    <p>
+      W sprawach dotyczących danych osobowych można kontaktować się z
+      Administratorem pod adresem e-mail:
+      <strong>{publicSite.contactEmail}</strong>.
+    </p>
+
+    <h2>2. Zakres zbieranych danych</h2>
+
+    <p>
+      W związku z korzystaniem ze strony i zakupem produktów cyfrowych
+      Administrator może przetwarzać następujące dane osobowe:
+    </p>
+
+    <ul>
+      <li>adres e-mail,</li>
+      <li>dane podane w korespondencji kierowanej do Administratora,</li>
+      <li>
+        dane dotyczące płatności i transakcji przekazywane przez operatora
+        płatności,
+      </li>
+      <li>
+        dane techniczne związane z korzystaniem ze strony, w tym adres IP, logi
+        systemowe, informacje o urządzeniu i przeglądarce,
+      </li>
+      <li>
+        dane zapisane w plikach cookies lub podobnych technologiach, w tym w
+        <code>localStorage</code>, jeśli są stosowane w serwisie.
+      </li>
+    </ul>
+
+    <h2>3. Cele i podstawy przetwarzania danych</h2>
+
+    <p>Dane osobowe są przetwarzane w następujących celach:</p>
+
+    <h3>a) Realizacja zamówienia i dostarczenie zakupionego produktu cyfrowego</h3>
+    <p>
+      W szczególności dotyczy to przyjęcia zamówienia, obsługi płatności oraz
+      wysyłki pliku PDF na podany adres e-mail.<br />
+      <strong>Podstawa prawna:</strong> art. 6 ust. 1 lit. b RODO, czyli
+      przetwarzanie niezbędne do zawarcia i wykonania umowy.
+    </p>
+
+    <h3>b) Realizacja obowiązków prawnych ciążących na Administratorze</h3>
+    <p>
+      Dotyczy to w szczególności obowiązków podatkowych, rachunkowych oraz
+      obowiązków związanych z obsługą reklamacji i dokumentacją sprzedaży.<br />
+      <strong>Podstawa prawna:</strong> art. 6 ust. 1 lit. c RODO, czyli
+      wypełnienie obowiązku prawnego ciążącego na Administratorze.
+    </p>
+
+    <h3>c) Ustalenie, dochodzenie lub obrona roszczeń</h3>
+    <p>
+      Dane mogą być przetwarzane również w celu ochrony przed roszczeniami lub
+      dochodzenia roszczeń związanych z prowadzoną działalnością.<br />
+      <strong>Podstawa prawna:</strong> art. 6 ust. 1 lit. f RODO, czyli
+      prawnie uzasadniony interes Administratora.
+    </p>
+
+    <h3>d) Kontakt z użytkownikiem</h3>
+    <p>
+      Jeżeli użytkownik kontaktuje się z Administratorem mailowo, jego dane
+      będą przetwarzane w celu udzielenia odpowiedzi i prowadzenia
+      korespondencji.<br />
+      <strong>Podstawa prawna:</strong> art. 6 ust. 1 lit. f RODO, czyli
+      prawnie uzasadniony interes Administratora polegający na obsłudze
+      kontaktu.
+    </p>
+
+    <h3>e) Zapewnienie prawidłowego działania strony i bezpieczeństwa serwisu</h3>
+    <p>
+      Dane techniczne mogą być przetwarzane w celu utrzymania bezpieczeństwa
+      serwisu, diagnozowania problemów technicznych oraz zapewnienia
+      prawidłowego działania strony.<br />
+      <strong>Podstawa prawna:</strong> art. 6 ust. 1 lit. f RODO, czyli
+      prawnie uzasadniony interes Administratora.
+    </p>
+
+    <h3>f) Cele analityczne</h3>
+    <p>
+      Jeżeli w serwisie zostaną wdrożone narzędzia analityczne, dane mogą być
+      przetwarzane również w celu tworzenia statystyk dotyczących korzystania ze
+      strony.<br />
+      <strong>Podstawa prawna:</strong> art. 6 ust. 1 lit. a RODO, czyli zgoda
+      użytkownika - w zakresie, w jakim zgoda jest wymagana.
+    </p>
+
+    <h2>4. Czy podanie danych jest obowiązkowe</h2>
+    <p>
+      Podanie adresu e-mail jest dobrowolne, ale niezbędne do zawarcia i
+      wykonania umowy, w tym do dostarczenia zakupionego produktu cyfrowego.
+      Brak podania adresu e-mail uniemożliwi realizację zamówienia.
+    </p>
+
+    <h2>5. Odbiorcy danych</h2>
+    <p>
+      Dane osobowe mogą być przekazywane podmiotom współpracującym z
+      Administratorem, wyłącznie w zakresie niezbędnym do realizacji wskazanych
+      celów, w szczególności:
+    </p>
+    <ul>
+      <li>
+        dostawcom hostingu i infrastruktury technicznej, w tym
+        <strong> Microsoft Azure </strong> oraz <strong>Netlify</strong>,
+      </li>
+      <li>operatorowi płatności <strong>PayU</strong>,</li>
+      <li>dostawcom usług poczty elektronicznej,</li>
+      <li>dostawcom usług IT, wsparcia technicznego i bezpieczeństwa,</li>
+      <li>podmiotom świadczącym usługi księgowe lub prawne,</li>
+      <li>
+        uprawnionym organom publicznym, jeśli obowiązek udostępnienia danych
+        wynika z przepisów prawa.
+      </li>
+    </ul>
+
+    <p>
+      PayU świadczy usługi płatnicze dla e-commerce, dlatego może otrzymywać
+      dane niezbędne do obsługi transakcji.
+    </p>
+
+    <h2>6. Przekazywanie danych poza Europejski Obszar Gospodarczy</h2>
+    <p>
+      Dane osobowe mogą być przekazywane poza Europejski Obszar Gospodarczy
+      wyłącznie wtedy, gdy jest to niezbędne w związku z korzystaniem z usług
+      dostawców infrastruktury lub narzędzi technologicznych i odbywa się
+      zgodnie z obowiązującymi przepisami, z zastosowaniem odpowiednich
+      zabezpieczeń prawnych.
+    </p>
+
+    <h2>7. Okres przechowywania danych</h2>
+    <p>
+      Dane osobowe będą przechowywane przez okres nie dłuższy, niż jest to
+      niezbędne do realizacji celu, dla którego zostały zebrane, w
+      szczególności:
+    </p>
+    <ul>
+      <li>
+        dane związane z realizacją zamówienia - przez czas niezbędny do
+        wykonania umowy,
+      </li>
+      <li>
+        dane związane z dokumentacją księgową i podatkową - przez okres
+        wymagany przez przepisy prawa,
+      </li>
+      <li>
+        dane przetwarzane w celu dochodzenia lub obrony roszczeń - do czasu
+        upływu odpowiednich terminów przedawnienia,
+      </li>
+      <li>
+        dane z korespondencji - przez okres potrzebny do obsługi sprawy, a
+        następnie przez czas uzasadniony archiwizacją i ochroną przed
+        roszczeniami,
+      </li>
+      <li>
+        dane techniczne i logi - przez okres potrzebny do zapewnienia
+        bezpieczeństwa i prawidłowego działania serwisu,
+      </li>
+      <li>
+        dane przetwarzane na podstawie zgody - do czasu jej wycofania albo
+        ustania celu przetwarzania.
+      </li>
+    </ul>
+
+    <h2>8. Prawa osoby, której dane dotyczą</h2>
+    <p>Każdej osobie, której dane dotyczą, przysługuje prawo do:</p>
+    <ul>
+      <li>dostępu do danych,</li>
+      <li>sprostowania danych,</li>
+      <li>usunięcia danych,</li>
+      <li>ograniczenia przetwarzania,</li>
+      <li>przenoszenia danych,</li>
+      <li>
+        wniesienia sprzeciwu wobec przetwarzania danych, gdy podstawą jest
+        prawnie uzasadniony interes Administratora,
+      </li>
+      <li>
+        cofnięcia zgody w dowolnym momencie, jeśli przetwarzanie odbywa się na
+        podstawie zgody,
+      </li>
+      <li>wniesienia skargi do Prezesa Urzędu Ochrony Danych Osobowych.</li>
+    </ul>
+
+    <h2>9. Zautomatyzowane podejmowanie decyzji i profilowanie</h2>
+    <p>
+      Dane osobowe użytkowników nie są wykorzystywane do podejmowania decyzji w
+      sposób zautomatyzowany wywołujących wobec użytkownika skutki prawne.
+    </p>
+    <p>
+      Jeżeli w przyszłości w serwisie zostaną wdrożone narzędzia prowadzące do
+      profilowania, Polityka prywatności zostanie odpowiednio uzupełniona.
+    </p>
+
+    <h2>10. Pliki cookies i dane techniczne</h2>
+    <p>
+      Serwis wykorzystuje pliki cookies lub podobne technologie wyłącznie w
+      zakresie niezbędnym do prawidłowego działania strony i realizacji procesu
+      zakupu. Obecnie w serwisie nie są wykorzystywane cookies analityczne ani
+      marketingowe.
+    </p>
+    <p>W szczególności mogą być wykorzystywane:</p>
+    <ul>
+      <li>
+        pliki cookies techniczne lub podobne technologie służące zapewnieniu
+        prawidłowego działania strony,
+      </li>
+      <li>mechanizmy służące utrzymaniu bezpieczeństwa serwisu,</li>
+      <li>
+        <code>localStorage</code> do zapamiętania statusu komunikatu cookies
+        oraz informacji niezbędnych do obsługi procesu zakupu i powrotu
+        użytkownika po płatności,
+      </li>
+      <li>
+        technologie dostawców zewnętrznych wykorzystywanych podczas realizacji
+        płatności, w szczególności PayU.
+      </li>
+    </ul>
+
+    <p>
+      Jeżeli w serwisie zostaną w przyszłości wdrożone cookies analityczne lub
+      marketingowe, użytkownik otrzyma możliwość zarządzania zgodą za
+      pośrednictwem odpowiednio rozbudowanego banera cookies.
+    </p>
+
+    <h2>11. Zmiany Polityki prywatności</h2>
+    <p>
+      Administrator może aktualizować niniejszą Politykę prywatności, w
+      szczególności w przypadku zmian technologicznych, organizacyjnych lub
+      prawnych. Aktualna wersja Polityki prywatności będzie publikowana na
+      stronie internetowej serwisu.
+    </p>
+  </LegalPageLayout>
+</BaseLayout>

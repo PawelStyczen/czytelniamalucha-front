@@ -1,0 +1,386 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CheckoutModal from "../../components/CheckoutModal.astro";
+import { getProductById, getProductHref, products } from "../../data/products";
+
+export function getStaticPaths() {
+  return products.map((product) => ({
+    params: { id: product.id },
+    props: { product },
+  }));
+}
+
+const { product } = Astro.props as {
+  product: NonNullable<ReturnType<typeof getProductById>>;
+};
+
+const offerHref = "/#oferta";
+---
+
+<BaseLayout
+  title={`${product.name} — Czytelnia Malucha`}
+  description={product.subtitle}
+>
+  <main class="product-page section">
+    <div class="container">
+      <nav aria-label="Breadcrumb" class="product-page__breadcrumbs">
+        <a href="/" class="product-page__crumb-link">Start</a>
+        <span aria-hidden="true" class="product-page__crumb-sep">/</span>
+        <a href={offerHref} class="product-page__crumb-link">Oferta</a>
+        <span aria-hidden="true" class="product-page__crumb-sep">/</span>
+        <span class="product-page__crumb-current">{product.name}</span>
+      </nav>
+
+      <section class="product-page__hero">
+        <div class="product-page__cover">
+          <div class="product-page__cover-surface">
+            <img
+              src={product.image}
+              alt={product.name}
+              class="product-page__cover-image"
+            />
+          </div>
+        </div>
+
+        <div class="product-page__content">
+          <h1 class="h1 product-page__title">{product.name}</h1>
+          <p class="lead product-page__subtitle">{product.subtitle}</p>
+
+          <div class="product-page__price-row">
+            <span class="product-page__price-label">Cena</span>
+            <strong class="product-page__price">{product.priceLabel}</strong>
+          </div>
+
+          <ul class="product-page__bullets">
+            {product.bullets.map((bullet) => <li>{bullet}</li>)}
+          </ul>
+
+          <div class="product-page__actions" id="kup">
+            <button
+              class="btn btn-primary"
+              type="button"
+              data-checkout={product.id}
+            >
+              Kup teraz
+            </button>
+            <a class="btn btn-secondary" href={offerHref}>Wróć do oferty</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="product-page__details-grid">
+        <article class="product-page__panel card">
+          <div class="kicker">Co jest w środku?</div>
+          <h2 class="h2 product-page__section-title">Zawartość zestawu</h2>
+          <ul class="list product-page__inside-list">
+            {product.details.inside.map((item) => <li>{item}</li>)}
+          </ul>
+        </article>
+
+        <article class="product-page__panel card">
+          <div class="kicker">Podgląd PDF</div>
+          <h2 class="h2 product-page__section-title">Przykładowe strony</h2>
+          <div class="product-page__gallery">
+            {
+              product.details.images.map((image, index) => (
+                <button
+                  type="button"
+                  class="product-page__gallery-button"
+                  data-lightbox-src={image}
+                  data-lightbox-alt={`Podgląd ${index + 1} zestawu ${product.name}`}
+                  aria-label={`Powiększ podgląd ${index + 1} zestawu ${product.name}`}
+                >
+                  <img
+                    src={image}
+                    alt={`Podgląd zestawu ${product.name}`}
+                    loading="lazy"
+                  />
+                </button>
+              ))
+            }
+          </div>
+        </article>
+      </section>
+
+      <div class="product-page__back-link-wrap">
+        <a href={offerHref} class="link">Zobacz wszystkie produkty</a>
+      </div>
+    </div>
+  </main>
+
+  <div id="productLightbox" class="modal" aria-hidden="true">
+    <div class="modal__backdrop" data-lightbox-close></div>
+    <div class="product-lightbox__panel">
+      <button
+        class="modal__x product-lightbox__close"
+        type="button"
+        data-lightbox-close
+        aria-label="Zamknij podgląd"
+      >
+        ✕
+      </button>
+      <img
+        id="productLightboxImage"
+        src=""
+        alt=""
+        class="product-lightbox__image"
+      />
+    </div>
+  </div>
+
+  <CheckoutModal defaultProductId={product.id} />
+</BaseLayout>
+
+<style>
+  .product-page {
+    padding-top: 5.5rem;
+  }
+
+  .product-page__breadcrumbs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    color: rgba(58, 58, 58, 0.65);
+    background-color: var(--wood);
+    padding: 0.25rem 0.75rem;
+    border-radius: 25px;
+  }
+
+  .product-page__crumb-link {
+    color: #6b8f71;
+    text-decoration: none;
+  }
+
+  .product-page__crumb-link:hover {
+    text-decoration: underline;
+  }
+
+  .product-page__crumb-sep {
+    color: rgba(58, 58, 58, 0.35);
+  }
+
+  .product-page__crumb-current {
+    color: rgba(58, 58, 58, 0.78);
+    font-weight: 800;
+  }
+
+  .product-page__hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .product-page__cover {
+    height: 100%;
+  }
+
+  .product-page__cover-surface {
+  }
+
+  .product-page__cover-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 600px;
+    object-fit: cover;
+  }
+
+  .product-page__content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .product-page__badge {
+    width: fit-content;
+  }
+
+  .product-page__title {
+    margin: 0;
+  }
+
+  .product-page__subtitle {
+    margin: 0;
+    max-width: 60ch;
+  }
+
+  .product-page__price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding: 1rem 1.1rem;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.82);
+    border: 1px solid rgba(58, 58, 58, 0.08);
+  }
+
+  .product-page__price-label {
+    font-size: 0.95rem;
+    color: rgba(58, 58, 58, 0.65);
+  }
+
+  .product-page__price {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    line-height: 1;
+  }
+
+  .product-page__bullets {
+    margin: 0;
+    padding-left: 1.2rem;
+    line-height: 1.8;
+  }
+
+  .product-page__actions {
+    display: flex;
+    gap: 0.9rem;
+    flex-wrap: wrap;
+    padding-top: 0.5rem;
+  }
+
+  .product-page__details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+
+  .product-page__panel {
+    padding: 1.4rem;
+  }
+
+  .product-page__section-title {
+    margin-top: 0.4rem;
+  }
+
+  .product-page__inside-list {
+    margin-top: 1rem;
+  }
+
+  .product-page__gallery {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
+    margin-top: 1rem;
+  }
+
+  .product-page__gallery-button {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: zoom-in;
+    text-align: left;
+  }
+
+  .product-page__gallery img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    transition: transform 0.18s ease;
+  }
+
+  .product-page__gallery-button:hover img {
+    transform: translateY(-2px);
+  }
+
+  .product-lightbox__panel {
+    position: relative;
+    width: min(1120px, calc(100% - 24px));
+    margin: 4vh auto 0;
+    padding: 0;
+  }
+
+  .product-lightbox__close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 1;
+  }
+
+  .product-lightbox__image {
+    display: block;
+    width: 100%;
+    max-height: 88vh;
+    object-fit: contain;
+
+    background: rgba(255, 255, 255, 0.95);
+    border: 45px solid var(--paper);
+  }
+
+  .product-page__back-link-wrap {
+    margin-top: 1.5rem;
+  }
+
+  @media (max-width: 920px) {
+    .product-page__hero,
+    .product-page__details-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .product-page__cover-image {
+      min-height: 320px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .product-page {
+      padding-top: 4.5rem;
+    }
+
+    .product-page__gallery {
+      grid-template-columns: 1fr;
+    }
+
+    .product-page__actions :global(.btn) {
+      width: 100%;
+    }
+  }
+</style>
+
+<script is:inline>
+  const productLightbox = document.getElementById("productLightbox");
+  const productLightboxImage = document.getElementById("productLightboxImage");
+
+  function openProductLightbox(src, alt) {
+    if (!productLightbox || !productLightboxImage) return;
+    productLightboxImage.src = src;
+    productLightboxImage.alt = alt || "";
+    productLightbox.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeProductLightbox() {
+    if (!productLightbox || !productLightboxImage) return;
+    productLightbox.setAttribute("aria-hidden", "true");
+    productLightboxImage.src = "";
+    productLightboxImage.alt = "";
+    document.body.style.overflow = "";
+  }
+
+  document.addEventListener("click", (event) => {
+    const trigger = event.target.closest("[data-lightbox-src]");
+    if (trigger) {
+      event.preventDefault();
+      openProductLightbox(
+        trigger.getAttribute("data-lightbox-src"),
+        trigger.getAttribute("data-lightbox-alt"),
+      );
+      return;
+    }
+
+    if (event.target && event.target.matches("[data-lightbox-close]")) {
+      closeProductLightbox();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (
+      event.key === "Escape" &&
+      productLightbox?.getAttribute("aria-hidden") === "false"
+    ) {
+      closeProductLightbox();
+    }
+  });
+</script>

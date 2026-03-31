@@ -1,0 +1,372 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import LegalPageLayout from "../components/LegalPageLayout.astro";
+import { publicSite } from "../config/publicSite";
+---
+
+<BaseLayout
+  title="Regulamin sklepu internetowego Czytelnia Malucha - Czytelnia Malucha"
+  description="Zasady korzystania ze sklepu, składania zamówień, płatności, dostarczania produktów cyfrowych oraz reklamacji."
+>
+  <LegalPageLayout
+    title="Regulamin sklepu internetowego Czytelnia Malucha"
+    description="Zasady korzystania ze sklepu, składania zamówień, płatności, dostarczania produktów cyfrowych oraz reklamacji."
+    currentLabel="Regulamin"
+  >
+    <p><strong>Data obowiązywania:</strong> 27 marca 2026 r.</p>
+
+    <h2>§1. Postanowienia ogólne</h2>
+    <ol>
+      <li>
+        Niniejszy Regulamin określa zasady korzystania ze sklepu internetowego
+        prowadzonego pod adresem <strong>{publicSite.siteHost}</strong>, w tym
+        zasady składania zamówień, zawierania umów, dokonywania płatności,
+        dostarczania produktów cyfrowych oraz składania reklamacji.
+      </li>
+      <li>
+        Sklep prowadzi sprzedaż materiałów cyfrowych w formacie PDF dotyczących
+        globalnego czytania, przeznaczonych do pobrania lub dostarczanych drogą
+        elektroniczną na adres e-mail Klienta.
+      </li>
+      <li>
+        Regulamin jest udostępniany nieodpłatnie na stronie internetowej Sklepu
+        w sposób umożliwiający jego pozyskanie, odtwarzanie i utrwalanie.
+      </li>
+    </ol>
+
+    <h2>§2. Dane Sprzedawcy</h2>
+    <ol>
+      <li>
+        Sprzedawcą jest:
+        <p>
+          <strong>{publicSite.businessName}</strong><br />
+          NIP: <strong>{publicSite.businessNip}</strong><br />
+          adres do doręczeń: <strong>{publicSite.businessAddress}</strong><br />
+          e-mail: <strong>{publicSite.contactEmail}</strong>
+        </p>
+      </li>
+      <li>
+        Kontakt ze Sprzedawcą jest możliwy za pośrednictwem poczty
+        elektronicznej pod adresem:
+        <strong>{publicSite.contactEmail}</strong>.
+      </li>
+    </ol>
+
+    <h2>§3. Definicje</h2>
+    <p>Użyte w Regulaminie pojęcia oznaczają:</p>
+    <ol>
+      <li>
+        <strong>Sklep</strong> - sklep internetowy dostępny pod adresem
+        {publicSite.siteHost}.
+      </li>
+      <li>
+        <strong>Sprzedawca</strong> - {publicSite.businessName}.
+      </li>
+      <li>
+        <strong>Klient</strong> - osoba fizyczna, osoba prawna albo jednostka
+        organizacyjna dokonująca zakupu za pośrednictwem Sklepu.
+      </li>
+      <li>
+        <strong>Konsument</strong> - osoba fizyczna dokonująca zakupu
+        niezwiązanego bezpośrednio z jej działalnością gospodarczą lub
+        zawodową.
+      </li>
+      <li>
+        <strong>Przedsiębiorca na prawach konsumenta</strong> - osoba fizyczna
+        prowadząca działalność gospodarczą, której przysługują uprawnienia
+        konsumenckie w przypadkach przewidzianych przez przepisy prawa.
+      </li>
+      <li>
+        <strong>Produkt cyfrowy</strong> - treść cyfrowa w formacie PDF
+        oferowana w Sklepie.
+      </li>
+      <li>
+        <strong>Umowa</strong> - umowa o dostarczanie treści cyfrowej zawierana
+        na odległość pomiędzy Klientem a Sprzedawcą.
+      </li>
+      <li>
+        <strong>PayU</strong> - zewnętrzny operator płatności obsługujący
+        płatności w Sklepie.
+      </li>
+    </ol>
+
+    <h2>§4. Wymagania techniczne</h2>
+    <ol>
+      <li>
+        Do korzystania ze Sklepu oraz zakupu Produktów cyfrowych niezbędne są:
+        <br />
+        a) urządzenie z dostępem do Internetu,<br />
+        b) aktualna przeglądarka internetowa,<br />
+        c) aktywny adres e-mail,<br />
+        d) program umożliwiający otwieranie plików PDF.
+      </li>
+      <li>
+        Sprzedawca dokłada starań, aby korzystanie ze Sklepu było możliwe dla
+        użytkowników popularnych urządzeń i przeglądarek, jednak nie gwarantuje
+        pełnej kompatybilności ze wszystkimi indywidualnymi konfiguracjami
+        sprzętowymi Klienta.
+      </li>
+      <li>
+        Produkty cyfrowe są dostarczane w formacie PDF i nie zawierają
+        fizycznego nośnika.
+      </li>
+    </ol>
+
+    <h2>§5. Informacje o produktach i cenach</h2>
+    <ol>
+      <li>
+        Informacje o Produktach cyfrowych prezentowane w Sklepie stanowią
+        zaproszenie do zawarcia umowy.
+      </li>
+      <li>
+        Ceny Produktów podawane w Sklepie są cenami w złotych polskich i są
+        cenami brutto.
+      </li>
+      <li>
+        Cena Produktu wskazana na stronie Sklepu jest wiążąca w chwili złożenia
+        zamówienia przez Klienta.
+      </li>
+      <li>
+        Jeżeli w Sklepie są organizowane promocje lub obniżki cen, Sprzedawca
+        prezentuje je zgodnie z obowiązującymi przepisami prawa.
+      </li>
+    </ol>
+
+    <h2>§6. Składanie zamówień i zawarcie umowy</h2>
+    <ol>
+      <li>
+        Klient może złożyć zamówienie przez stronę internetową Sklepu 24
+        godziny na dobę, 7 dni w tygodniu.
+      </li>
+      <li>
+        W celu złożenia zamówienia Klient:
+        <br />
+        a) wybiera Produkt cyfrowy,<br />
+        b) przechodzi do formularza zamówienia,<br />
+        c) podaje wymagane dane, w szczególności adres e-mail,<br />
+        d) akceptuje Regulamin oraz Politykę prywatności,<br />
+        e) jeżeli chce otrzymać Produkt cyfrowy przed upływem terminu do
+        odstąpienia od umowy - wyraża wyraźną zgodę na rozpoczęcie świadczenia
+        przed upływem 14 dni i przyjmuje do wiadomości utratę prawa
+        odstąpienia,<br />
+        f) potwierdza zamówienie i dokonuje płatności.
+      </li>
+      <li>Złożenie zamówienia oznacza ofertę zawarcia Umowy przez Klienta.</li>
+      <li>
+        Do zawarcia Umowy dochodzi z chwilą potwierdzenia przyjęcia zamówienia
+        do realizacji przez Sprzedawcę lub skutecznego opłacenia zamówienia -
+        zgodnie z rozwiązaniem technicznym zastosowanym w Sklepie.
+      </li>
+      <li>
+        Przycisk finalizujący zakup powinien być oznaczony w sposób
+        jednoznacznie wskazujący obowiązek zapłaty, na przykład "Kupuję i
+        płacę" lub równoważnie.
+      </li>
+    </ol>
+
+    <h2>§7. Płatności</h2>
+    <ol>
+      <li>
+        Płatności za zamówienia realizowane są za pośrednictwem operatora
+        płatności <strong>PayU</strong>.
+      </li>
+      <li>
+        Dostępne metody płatności są prezentowane Klientowi na etapie składania
+        zamówienia.
+      </li>
+      <li>
+        Obsługa płatności odbywa się zgodnie z regulaminami i zasadami operatora
+        PayU.
+      </li>
+      <li>
+        Sprzedawca nie przechowuje pełnych danych instrumentów płatniczych
+        Klienta, o ile nie wynika to z technologii płatniczej stosowanej przez
+        operatora płatności.
+      </li>
+    </ol>
+
+    <h2>§8. Dostarczenie Produktu cyfrowego</h2>
+    <ol>
+      <li>
+        Produkt cyfrowy dostarczany jest drogą elektroniczną:
+        <br />
+        a) poprzez wysyłkę wiadomości e-mail zawierającej plik PDF lub link do
+        pobrania, albo<br />
+        b) poprzez udostępnienie linku do pobrania po opłaceniu zamówienia.
+      </li>
+      <li>
+        Dostarczenie Produktu cyfrowego następuje niezwłocznie po
+        zaksięgowaniu płatności, chyba że w opisie Produktu wskazano inaczej.
+      </li>
+      <li>
+        Produkt cyfrowy uważa się za dostarczony z chwilą:
+        <br />
+        a) wysłania go na adres e-mail podany przez Klienta, lub<br />
+        b) udostępnienia Klientowi możliwości jego pobrania.
+      </li>
+      <li>
+        Klient jest zobowiązany podać prawidłowy adres e-mail. Sprzedawca nie
+        ponosi odpowiedzialności za brak dostarczenia Produktu wynikający z
+        podania błędnego adresu e-mail przez Klienta.
+      </li>
+    </ol>
+
+    <h2>§9. Zasady korzystania z Produktów cyfrowych</h2>
+    <ol>
+      <li>
+        Produkty cyfrowe oferowane w Sklepie są przeznaczone do własnego użytku
+        Klienta, chyba że opis Produktu stanowi inaczej.
+      </li>
+      <li>
+        Klient nie jest uprawniony do dalszej odsprzedaży, publicznego
+        udostępniania, rozpowszechniania ani kopiowania Produktów cyfrowych w
+        celach komercyjnych bez uprzedniej zgody Sprzedawcy.
+      </li>
+      <li>
+        Produkty cyfrowe stanowią utwory chronione prawem autorskim. Ich
+        nieuprawnione wykorzystywanie może naruszać prawa Sprzedawcy lub innych
+        uprawnionych podmiotów.
+      </li>
+    </ol>
+
+    <h2>§10. Reklamacje</h2>
+    <ol>
+      <li>
+        Sprzedawca odpowiada wobec Konsumenta oraz Przedsiębiorcy na prawach
+        konsumenta za zgodność Produktu cyfrowego z Umową.
+      </li>
+      <li>
+        Jeżeli Produkt cyfrowy jest niezgodny z Umową, Klient może złożyć
+        reklamację.
+      </li>
+      <li>
+        Reklamacja może zostać złożona drogą elektroniczną na adres:
+        <strong>{publicSite.contactEmail}</strong>.
+      </li>
+      <li>
+        W reklamacji warto podać:
+        <br />
+        a) dane umożliwiające identyfikację zamówienia,<br />
+        b) opis problemu,<br />
+        c) żądanie Klienta.
+      </li>
+      <li>
+        Sprzedawca rozpatruje reklamację w terminie <strong>14 dni</strong> od
+        dnia jej otrzymania, chyba że przepisy bezwzględnie obowiązujące
+        stanowią inaczej.
+      </li>
+      <li>
+        W przypadku niezgodności Produktu cyfrowego z Umową Klientowi
+        przysługują uprawnienia przewidziane przez ustawę o prawach konsumenta.
+      </li>
+    </ol>
+
+    <h2>§11. Prawo odstąpienia od umowy</h2>
+    <ol>
+      <li>
+        Konsument oraz Przedsiębiorca na prawach konsumenta co do zasady mają
+        prawo odstąpić od Umowy zawartej na odległość w terminie 14 dni od dnia
+        jej zawarcia, bez podania przyczyny.
+      </li>
+      <li>
+        W przypadku Umów o dostarczanie treści cyfrowych niedostarczanych na
+        nośniku materialnym prawo odstąpienia nie przysługuje, jeżeli:
+        <br />
+        a) Sprzedawca rozpoczął świadczenie za wyraźną i uprzednią zgodą
+        Klienta,<br />
+        b) Klient został poinformowany przed rozpoczęciem świadczenia, że po
+        jego spełnieniu utraci prawo odstąpienia od Umowy,<br />
+        c) Klient przyjął to do wiadomości,<br />
+        d) Sprzedawca przekazał Klientowi potwierdzenie zawarcia Umowy na
+        trwałym nośniku.
+      </li>
+      <li>
+        Jeżeli warunki wskazane w ust. 2 nie zostały spełnione łącznie,
+        Klientowi przysługuje prawo odstąpienia od Umowy zgodnie z przepisami
+        prawa.
+      </li>
+      <li>
+        Aby skorzystać z prawa odstąpienia, Klient powinien przesłać
+        Sprzedawcy jednoznaczne oświadczenie na adres e-mail:
+        <strong>{publicSite.contactEmail}</strong>.
+      </li>
+      <li>
+        W przypadku skutecznego odstąpienia od Umowy Sprzedawca zwraca
+        Klientowi należne płatności niezwłocznie, nie później niż w terminie 14
+        dni, przy użyciu takiego samego sposobu płatności, jakiego użył Klient,
+        chyba że Klient wyraźnie zgodził się na inne rozwiązanie.
+      </li>
+    </ol>
+
+    <h2>§12. Usługi świadczone drogą elektroniczną</h2>
+    <ol>
+      <li>
+        Za pośrednictwem Sklepu Sprzedawca świadczy na rzecz użytkowników
+        usługi drogą elektroniczną polegające na:
+        <br />
+        a) umożliwieniu przeglądania treści Sklepu,<br />
+        b) umożliwieniu złożenia zamówienia,<br />
+        c) umożliwieniu kontaktu ze Sprzedawcą.
+      </li>
+      <li>
+        Umowa o świadczenie usług drogą elektroniczną zostaje zawarta z chwilą
+        rozpoczęcia korzystania z danej funkcjonalności Sklepu.
+      </li>
+      <li>
+        Użytkownik może zakończyć korzystanie z usług świadczonych drogą
+        elektroniczną w każdej chwili przez opuszczenie strony internetowej
+        Sklepu.
+      </li>
+      <li>
+        Zakazane jest dostarczanie przez użytkownika treści o charakterze
+        bezprawnym.
+      </li>
+    </ol>
+
+    <h2>§13. Dane osobowe</h2>
+    <ol>
+      <li>
+        Dane osobowe Klientów są przetwarzane zgodnie z obowiązującymi
+        przepisami prawa oraz zgodnie z Polityką prywatności dostępną na stronie
+        Sklepu.
+      </li>
+      <li>
+        Szczegółowe zasady przetwarzania danych osobowych określa Polityka
+        prywatności.
+      </li>
+    </ol>
+
+    <h2>§14. Pozasądowe sposoby rozpatrywania sporów</h2>
+    <ol>
+      <li>
+        Konsument ma możliwość skorzystania z pozasądowych sposobów
+        rozpatrywania reklamacji i dochodzenia roszczeń, zgodnie z obowiązującymi
+        przepisami prawa.
+      </li>
+      <li>
+        Szczegółowe informacje o takich możliwościach Konsument może uzyskać
+        m.in. na stronach właściwych instytucji zajmujących się ochroną
+        konsumentów.
+      </li>
+    </ol>
+
+    <h2>§15. Postanowienia końcowe</h2>
+    <ol>
+      <li>Do Umów zawieranych za pośrednictwem Sklepu stosuje się prawo polskie.</li>
+      <li>
+        W sprawach nieuregulowanych w niniejszym Regulaminie zastosowanie mają
+        przepisy powszechnie obowiązującego prawa, w szczególności Kodeksu
+        cywilnego oraz ustawy o prawach konsumenta.
+      </li>
+      <li>
+        Regulamin może ulec zmianie z ważnych przyczyn, w szczególności w razie
+        zmiany przepisów prawa, zmiany sposobów płatności, zmiany sposobu
+        dostarczania Produktów lub zmiany funkcjonalności Sklepu.
+      </li>
+      <li>
+        Do Umów zawartych przed zmianą Regulaminu stosuje się Regulamin
+        obowiązujący w chwili zawarcia Umowy.
+      </li>
+    </ol>
+  </LegalPageLayout>
+</BaseLayout>

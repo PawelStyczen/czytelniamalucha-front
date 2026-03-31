@@ -1,0 +1,150 @@
+---
+const {
+  defaultProductId = "pdf-001",
+} = Astro.props as { defaultProductId?: string };
+
+const apiBase = import.meta.env.PUBLIC_API_BASE ?? "http://localhost:7071";
+---
+
+<div id="checkoutModal" class="modal" aria-hidden="true">
+  <div class="modal__backdrop" data-close></div>
+  <div
+    class="modal__panel card"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="checkoutTitle"
+  >
+    <div
+      style="display:flex;align-items:center;justify-content:space-between;gap:12px;"
+    >
+      <div>
+        <div class="kicker">Zakup</div>
+        <h3 id="checkoutTitle" style="margin:6px 0 0;">Podaj e-mail</h3>
+      </div>
+      <button class="modal__x" type="button" data-close aria-label="Zamknij"
+        >✕</button
+      >
+    </div>
+
+    <p class="muted" style="margin:10px 0 12px;">
+      Po potwierdzeniu przejdziesz do płatności PayU (BLIK).
+    </p>
+
+    <form id="checkoutForm">
+      <input
+        type="hidden"
+        id="productId"
+        name="productId"
+        value={defaultProductId}
+      />
+
+      <label class="muted small" for="emailInput">E-mail</label>
+      <input
+        id="emailInput"
+        name="email"
+        type="email"
+        required
+        placeholder="np. rodzic@domena.pl"
+        style="width:100%;padding:12px 14px;border-radius:14px;border:1px solid rgba(58,58,58,.18);margin:8px 0 12px;"
+      />
+
+      <button
+        id="payBtn"
+        type="submit"
+        class="btn btn-primary"
+        style="width:100%;"
+      >
+        Przejdź do płatności PayU
+      </button>
+
+      <p id="checkoutMsg" class="muted small" style="margin:12px 0 0;"></p>
+    </form>
+  </div>
+</div>
+
+<script is:inline define:vars={{ apiBase, defaultProductId }}>
+  const modal = document.getElementById("checkoutModal");
+  const form = document.getElementById("checkoutForm");
+  const msg = document.getElementById("checkoutMsg");
+  const payBtn = document.getElementById("payBtn");
+  const emailInput = document.getElementById("emailInput");
+  const productIdInput = document.getElementById("productId");
+  const fallbackProductId = defaultProductId || "pdf-001";
+
+  function openModal(productId) {
+    if (!modal) return;
+    if (productIdInput) productIdInput.value = productId || fallbackProductId;
+    if (msg) msg.textContent = "";
+    if (payBtn) {
+      payBtn.disabled = false;
+      payBtn.textContent = "Przejdź do płatności PayU";
+    }
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    setTimeout(() => emailInput?.focus(), 0);
+  }
+
+  function closeModal() {
+    if (!modal) return;
+    modal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+
+  document.addEventListener("click", (e) => {
+    const el = e.target.closest("[data-checkout]");
+    if (!el) return;
+    e.preventDefault();
+    openModal(el.getAttribute("data-checkout"));
+  });
+
+  document.addEventListener("click", (e) => {
+    if (e.target && e.target.matches("[data-close]")) closeModal();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal?.getAttribute("aria-hidden") === "false")
+      closeModal();
+  });
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    msg.textContent = "";
+
+    const fd = new FormData(form);
+    const email = String(fd.get("email") || "").trim();
+    const productId = String(fd.get("productId") || fallbackProductId);
+
+    if (!email) {
+      msg.textContent = "Podaj e-mail.";
+      return;
+    }
+
+    payBtn.disabled = true;
+    payBtn.textContent = "Tworzę płatność…";
+
+    try {
+      const r = await fetch(`${apiBase}/api/checkout`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ productId, email }),
+      });
+
+      if (!r.ok) throw new Error(await r.text());
+      const data = await r.json();
+
+      localStorage.setItem("cm_email", email);
+      if (data.sessionId)
+        localStorage.setItem("cm_sessionId", data.sessionId);
+      if (data.payuOrderId)
+        localStorage.setItem("cm_payuOrderId", data.payuOrderId);
+      localStorage.setItem("cm_productId", productId);
+
+      payBtn.textContent = "Przekierowuję do PayU…";
+      window.location.href = data.redirectUri;
+    } catch (err) {
+      msg.textContent = "Błąd: " + (err?.message || err);
+      payBtn.disabled = false;
+      payBtn.textContent = "Przejdź do płatności PayU";
+    }
+  });
+</script>

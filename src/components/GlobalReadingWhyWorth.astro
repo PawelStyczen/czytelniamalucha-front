@@ -1,0 +1,146 @@
+---
+const highlights = [
+  {
+    title: "Pierwsze sukcesy bez presji",
+    text: "Dziecko szybciej rozpoznaje znajome wyrazy, więc łatwiej buduje motywację i ciekawość wobec czytania.",
+  },
+  {
+    title: "Wsparcie języka i słownictwa",
+    text: "Słowa połączone z codziennymi sytuacjami stają się bardziej zrozumiałe i naturalne w użyciu.",
+  },
+  {
+    title: "Lepsza koncentracja małymi krokami",
+    text: "Krótkie, regularne sesje pomagają ćwiczyć skupienie bez przeciążania dziecka.",
+  },
+  {
+    title: "Dobra relacja z nauką",
+    text: "Spokojna forma pracy wspiera poczucie sprawczości i tworzy pozytywne skojarzenia z czytaniem.",
+  },
+];
+---
+
+<section class="reading-worth section-tight">
+  <div class="container">
+    <div class="reading-worth__card card">
+      <div class="reading-worth__intro">
+        <div class="kicker">Dlaczego warto</div>
+        <h2 class="h2 reading-worth__title">
+          Krótko o tym, co daje globalne czytanie
+        </h2>
+        <p class="reading-worth__lead">
+          To łagodna metoda oswajania dziecka ze słowami. W centrum są
+          regularność, spokój i małe sukcesy, które pomagają wejść w świat
+          czytania bez pośpiechu.
+        </p>
+      </div>
+
+      <div class="reading-worth__grid">
+        {
+          highlights.map((item) => (
+            <article class="reading-worth__item">
+              <h3 class="reading-worth__item-title">{item.title}</h3>
+              <p class="reading-worth__item-text">{item.text}</p>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="reading-worth__footer">
+        <a
+          href="/globalne-czytanie-dlaczego-warto"
+          class="link reading-worth__link"
+        >
+          przeczytaj wiecej
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .reading-worth__card {
+    padding: 2rem;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255, 253, 248, 0.98),
+        rgba(249, 244, 235, 0.96)
+      ),
+      radial-gradient(
+        circle at top right,
+        rgba(107, 143, 113, 0.14),
+        transparent 28%
+      );
+    border: 1px solid rgba(58, 58, 58, 0.1);
+  }
+
+  .reading-worth__intro {
+    max-width: 62rem;
+  }
+
+  .reading-worth__title {
+    margin-top: 0.35rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .reading-worth__lead {
+    margin: 0;
+    max-width: 60ch;
+    font-family: var(--font-serif);
+    line-height: 1.8;
+    color: rgba(58, 58, 58, 0.8);
+  }
+
+  .reading-worth__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .reading-worth__item {
+    padding: 1.2rem;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(58, 58, 58, 0.08);
+  }
+
+  .reading-worth__item-title {
+    margin: 0 0 0.45rem;
+    font-size: 1.05rem;
+    line-height: 1.35;
+  }
+
+  .reading-worth__item-text {
+    margin: 0;
+    font-family: var(--font-serif);
+    line-height: 1.7;
+    color: rgba(58, 58, 58, 0.78);
+  }
+
+  .reading-worth__footer {
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(58, 58, 58, 0.08);
+  }
+
+  .reading-worth__link {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  @media (max-width: 920px) {
+    .reading-worth__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .reading-worth__card {
+      padding: 1.4rem;
+    }
+
+    .reading-worth__item {
+      padding: 1rem;
+    }
+  }
+</style>

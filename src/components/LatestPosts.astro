@@ -1,0 +1,90 @@
+---
+import BlogPostCard from "./BlogPostCard.astro";
+import { getPublishedBlogPosts } from "../utils/blog";
+
+const {
+  title = "Na blogu",
+  subtitle = "Przeczytaj najnowsze artykuły o czytaniu globalnym, Montessori i wspieraniu rozwoju dziecka.",
+} = Astro.props;
+
+const latestPosts = await getPublishedBlogPosts(3);
+---
+
+<section class="latest-posts section container">
+  <div class="latest-posts__header">
+    <div>
+      <div class="kicker">Blog</div>
+      <h2 class="latest-posts__title">{title}</h2>
+      <p class="latest-posts__subtitle">{subtitle}</p>
+    </div>
+
+    <a href="/blog" class="link">Zobacz wszystkie wpisy</a>
+  </div>
+
+  {
+    latestPosts.length > 0 ? (
+      <div class="latest-posts__grid">
+        {latestPosts.map((post) => (
+          <BlogPostCard post={post} headingTag="h3" variant="compact" />
+        ))}
+      </div>
+    ) : (
+      <div class="latest-posts__empty card">
+        <h3>Wkrótce pojawią się wpisy</h3>
+        <p class="muted" style="margin:8px 0 0;">
+          Blog jest gotowy — teraz wystarczy dodać pierwsze artykuły.
+        </p>
+      </div>
+    )
+  }
+</section>
+
+<style>
+  .latest-posts__header {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .latest-posts__title {
+    margin: 0.35rem 0 0.75rem;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    line-height: 1.15;
+  }
+
+  .latest-posts__subtitle {
+    margin: 0;
+    max-width: 70ch;
+    color: rgba(58, 58, 58, 0.78);
+    line-height: 1.7;
+  }
+
+  .latest-posts__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .latest-posts__empty {
+    padding: 1.5rem;
+  }
+
+  @media (max-width: 980px) {
+    .latest-posts__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .latest-posts__header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .latest-posts__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

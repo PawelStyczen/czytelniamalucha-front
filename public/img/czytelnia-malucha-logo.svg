@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 712 260" width="712" height="260">
 <defs>
   <linearGradient id="nav-logo-gradient" x1="356" y1="0" x2="356" y2="260" gradientUnits="userSpaceOnUse">
-    <stop offset="0%" stop-color="#c38257"/>
-    <stop offset="52%" stop-color="#f7dda7"/>
-    <stop offset="100%" stop-color="#c38257"/>
+    <stop offset="0%" stop-color="#b38f78"/>
+    <stop offset="52%" stop-color="#c99c81"/>
+    <stop offset="100%" stop-color="#b38f78"/>
   </linearGradient>
 </defs>
 <path fill="url(#nav-logo-gradient)" fill-rule="evenodd" d="

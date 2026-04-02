@@ -1,9 +1,11 @@
 ---
+import { publicApi } from "../config/publicApi";
+
 const {
   defaultProductId = "pdf-001",
 } = Astro.props as { defaultProductId?: string };
 
-const apiBase = import.meta.env.PUBLIC_API_BASE ?? "http://localhost:7071";
+const checkoutEndpoint = publicApi.checkoutEndpoint;
 ---
 
 <div id="checkoutModal" class="modal" aria-hidden="true">
@@ -62,7 +64,7 @@ const apiBase = import.meta.env.PUBLIC_API_BASE ?? "http://localhost:7071";
   </div>
 </div>
 
-<script is:inline define:vars={{ apiBase, defaultProductId }}>
+<script is:inline define:vars={{ checkoutEndpoint, defaultProductId }}>
   const modal = document.getElementById("checkoutModal");
   const form = document.getElementById("checkoutForm");
   const msg = document.getElementById("checkoutMsg");
@@ -123,7 +125,7 @@ const apiBase = import.meta.env.PUBLIC_API_BASE ?? "http://localhost:7071";
     payBtn.textContent = "Tworzę płatność…";
 
     try {
-      const r = await fetch(`${apiBase}/api/checkout`, {
+      const r = await fetch(checkoutEndpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ productId, email }),

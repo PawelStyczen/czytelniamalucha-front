@@ -43,8 +43,14 @@
         <ul id="pmodalInside" class="list" style="margin:0;"></ul>
 
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;">
-          <button id="pmodalBuy" class="btn btn-primary" type="button">
-            Kup
+          <button
+            id="pmodalBuy"
+            class="btn btn-primary"
+            type="button"
+            disabled
+            aria-disabled="true"
+          >
+            Kupno wkrótce
           </button>
           <button class="btn btn-secondary" type="button" data-pclose>
             Zamknij
@@ -52,7 +58,7 @@
         </div>
 
         <p class="muted small" style="margin:12px 0 0;">
-          Po kliknięciu „Kup” otworzy się modal płatności (ten sam co teraz).
+          Sprzedaż online jest chwilowo niedostępna. Wkrótce przywrócimy zakup.
         </p>
       </div>
 
@@ -182,9 +188,10 @@
       imagesEl.appendChild(img);
     });
 
-    // buy button -> otwiera checkout modal (u Ciebie to data-checkout)
-    buyBtn.dataset.checkout = product.id;
-    buyBtn.textContent = `Kup • ${product.priceLabel || ""}`.trim();
+    // zakup jest tymczasowo wyłączony, ale zostawiamy modal szczegółów
+    buyBtn.removeAttribute("data-checkout");
+    buyBtn.disabled = true;
+    buyBtn.textContent = "Kupno wkrótce";
 
     pmodal.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";

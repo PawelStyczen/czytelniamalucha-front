@@ -165,7 +165,12 @@
 
     titleEl.textContent = product.name || "Zestaw PDF";
     subEl.textContent = product.subtitle || "";
-    badgeEl.innerHTML = `<span class="icon-dot" aria-hidden="true"></span> ${product.badge || "Zestaw"}`;
+    badgeEl.replaceChildren();
+    const badgeDot = document.createElement("span");
+    badgeDot.className = "icon-dot";
+    badgeDot.setAttribute("aria-hidden", "true");
+    badgeEl.appendChild(badgeDot);
+    badgeEl.append(` ${product.badge || "Zestaw"}`);
     priceEl.textContent = product.priceLabel || "";
 
     // inside list

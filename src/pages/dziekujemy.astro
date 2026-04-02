@@ -44,7 +44,7 @@ const email = "";
 
   <script is:inline>
     const el = document.getElementById("email");
-    const email = localStorage.getItem("cm_email");
+    const email = sessionStorage.getItem("cm_email");
     if (el) el.textContent = email || "—";
   </script>
 </BaseLayout>

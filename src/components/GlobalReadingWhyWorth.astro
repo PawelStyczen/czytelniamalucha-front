@@ -1,146 +1,274 @@
 ---
-const highlights = [
+const parentReasons = [
   {
-    title: "Pierwsze sukcesy bez presji",
-    text: "Dziecko szybciej rozpoznaje znajome wyrazy, więc łatwiej buduje motywację i ciekawość wobec czytania.",
+    title: "Gotowe do wydruku",
+    text: "Kupujesz, pobierasz i możesz zacząć jeszcze dziś.",
   },
   {
-    title: "Wsparcie języka i słownictwa",
-    text: "Słowa połączone z codziennymi sytuacjami stają się bardziej zrozumiałe i naturalne w użyciu.",
+    title: "Stworzone przez mamę",
+    text: "Powstały z codziennych doświadczeń wspólnej nauki z dzieckiem.",
   },
   {
-    title: "Lepsza koncentracja małymi krokami",
-    text: "Krótkie, regularne sesje pomagają ćwiczyć skupienie bez przeciążania dziecka.",
+    title: "Rosną razem z dzieckiem",
+    text: "Od pierwszych wyrazów aż do samodzielnego czytania.",
   },
-  {
-    title: "Dobra relacja z nauką",
-    text: "Spokojna forma pracy wspiera poczucie sprawczości i tworzy pozytywne skojarzenia z czytaniem.",
-  },
+];
+
+const benefits = [
+  "✅ rozwój słownictwa",
+  "✅ koncentrację i pamięć",
+  "✅ pewność siebie dziecka",
+  "✅ zainteresowanie książkami",
+  "✅ samodzielność w poznawaniu świata",
 ];
 ---
 
-<section class="reading-worth section-tight">
+<section class="reading-worth section" aria-labelledby="parent-reasons-title">
   <div class="container">
-    <div class="reading-worth__card card">
-      <div class="reading-worth__intro">
-        <div class="kicker">Dlaczego warto</div>
-        <h2 class="h2 reading-worth__title">
-          Krótko o tym, co daje globalne czytanie
-        </h2>
-        <p class="reading-worth__lead">
-          To łagodna metoda oswajania dziecka ze słowami. W centrum są
-          regularność, spokój i małe sukcesy, które pomagają wejść w świat
-          czytania bez pośpiechu.
-        </p>
-      </div>
+    <div class="reading-worth__reasons">
+      <h2 class="h2 reading-worth__main-title" id="parent-reasons-title">
+        Dlaczego rodzice wybierają Czytelnię Malucha?
+      </h2>
 
-      <div class="reading-worth__grid">
+      <div class="reading-worth__reasons-grid">
         {
-          highlights.map((item) => (
-            <article class="reading-worth__item">
-              <h3 class="reading-worth__item-title">{item.title}</h3>
-              <p class="reading-worth__item-text">{item.text}</p>
+          parentReasons.map((reason) => (
+            <article class="reading-worth__reason card paper-texture">
+              <h3 class="reading-worth__reason-title">{reason.title}</h3>
+              <p class="reading-worth__reason-text">{reason.text}</p>
             </article>
           ))
         }
       </div>
+    </div>
 
-      <div class="reading-worth__footer">
-        <a
-          href="/globalne-czytanie-dlaczego-warto"
-          class="link reading-worth__link"
-        >
-          przeczytaj wiecej
-        </a>
+    <div class="reading-worth__benefits card paper-texture">
+      <div class="reading-worth__benefits-intro">
+        <h2 class="h2 reading-worth__benefits-title">Dlaczego warto?</h2>
+        <p class="reading-worth__benefits-lead">
+          Najważniejsze nie jest to, jak szybko dziecko zacznie czytać.
+          Najważniejsze jest, aby pierwsze spotkanie z literami kojarzyło się z
+          ciekawością i radością.
+        </p>
       </div>
+
+      <div class="reading-worth__benefits-list-wrap">
+        <h3 class="reading-worth__benefits-list-title">
+          Nauka czytania od najmłodszych lat wspiera:
+        </h3>
+        <ul class="reading-worth__benefits-list">
+          {benefits.map((benefit) => <li>{benefit}</li>)}
+        </ul>
+      </div>
+
+      <div class="reading-worth__benefits-image" aria-hidden="true"></div>
     </div>
   </div>
 </section>
 
 <style>
-  .reading-worth__card {
-    padding: 2rem;
+  .reading-worth {
     background:
-      linear-gradient(
-        180deg,
-        rgba(255, 253, 248, 0.98),
-        rgba(249, 244, 235, 0.96)
-      ),
       radial-gradient(
-        circle at top right,
-        rgba(107, 143, 113, 0.14),
-        transparent 28%
-      );
-    border: 1px solid rgba(58, 58, 58, 0.1);
+        circle at top left,
+        rgba(107, 143, 113, 0.13),
+        transparent 30%
+      ),
+      rgba(255, 255, 255, 0.38);
   }
 
-  .reading-worth__intro {
-    max-width: 62rem;
+  .reading-worth__main-title {
+    max-width: 18ch;
+    margin-bottom: 2rem;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.08;
+    letter-spacing: -0.035em;
   }
 
-  .reading-worth__title {
-    margin-top: 0.35rem;
-    margin-bottom: 0.8rem;
-  }
-
-  .reading-worth__lead {
-    margin: 0;
-    max-width: 60ch;
-    font-family: var(--font-serif);
-    line-height: 1.8;
-    color: rgba(58, 58, 58, 0.8);
-  }
-
-  .reading-worth__grid {
+  .reading-worth__reasons-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
-    margin-top: 1.5rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
   }
 
-  .reading-worth__item {
-    padding: 1.2rem;
-    background: rgba(255, 255, 255, 0.72);
-    border: 1px solid rgba(58, 58, 58, 0.08);
+  .reading-worth__reason {
+    position: relative;
+    min-height: 230px;
+    padding: 1.7rem;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        rgba(90, 75, 55, 0.02) 0,
+        rgba(90, 75, 55, 0.02) 1px,
+        transparent 1px,
+        transparent 5px
+      ),
+      rgba(255, 253, 248, 0.95);
+    border: 1px solid rgba(58, 58, 58, 0.09);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.055);
   }
 
-  .reading-worth__item-title {
-    margin: 0 0 0.45rem;
-    font-size: 1.05rem;
-    line-height: 1.35;
+  .reading-worth__reason:nth-child(2) {
+    background:
+      repeating-linear-gradient(
+        0deg,
+        rgba(90, 75, 55, 0.02) 0,
+        rgba(90, 75, 55, 0.02) 1px,
+        transparent 1px,
+        transparent 5px
+      ),
+      rgba(232, 240, 226, 0.95);
   }
 
-  .reading-worth__item-text {
+  .reading-worth__reason:nth-child(3) {
+    background:
+      repeating-linear-gradient(
+        0deg,
+        rgba(90, 75, 55, 0.02) 0,
+        rgba(90, 75, 55, 0.02) 1px,
+        transparent 1px,
+        transparent 5px
+      ),
+      rgba(238, 230, 217, 0.95);
+  }
+
+  .reading-worth__reason-mark {
+    display: block;
+    width: 2.6rem;
+    height: 0.35rem;
+    margin-bottom: 3rem;
+    background: var(--green);
+  }
+
+  .reading-worth__reason-title {
     margin: 0;
+    font-size: 1.3rem;
+    line-height: 1.3;
+  }
+
+  .reading-worth__reason-text {
+    margin: 0.75rem 0 0;
     font-family: var(--font-serif);
-    line-height: 1.7;
+    line-height: 1.75;
     color: rgba(58, 58, 58, 0.78);
   }
 
-  .reading-worth__footer {
-    margin-top: 1.25rem;
-    padding-top: 1rem;
-    border-top: 1px solid rgba(58, 58, 58, 0.08);
+  .reading-worth__benefits {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "image intro"
+      "image list";
+    align-items: stretch;
+    margin-top: 2rem;
+    padding: 0;
+    overflow: hidden;
+    background: #fff;
+    border: 10px solid #fff;
+    outline: 1px solid rgba(58, 58, 58, 0.18);
+    box-shadow:
+      inset 0 0 0 2px rgba(255, 255, 255, 0.48),
+      inset 0 0 14px rgba(58, 58, 58, 0.12),
+      0 20px 38px rgba(0, 0, 0, 0.1);
   }
 
-  .reading-worth__link {
-    display: inline-flex;
-    align-items: center;
+  .reading-worth__benefits-intro {
+    grid-area: intro;
+    padding: clamp(1.7rem, 5vw, 3.5rem) clamp(1.7rem, 5vw, 3.5rem) 1.5rem;
+    background: #fff;
+  }
+
+  .reading-worth__benefits-title {
+    margin-bottom: 0.9rem;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+  }
+
+  .reading-worth__benefits-lead {
+    margin: 0;
+    max-width: 58ch;
+    font-family: var(--font-serif);
+    font-size: 1.06rem;
+    line-height: 1.85;
+    color: rgba(58, 58, 58, 0.8);
+  }
+
+  .reading-worth__benefits-list-wrap {
+    grid-area: list;
+    margin: 0 clamp(1.7rem, 5vw, 3.5rem) clamp(1.7rem, 5vw, 3.5rem);
+    padding: 1.6rem;
+    background: #fff;
+    border-left: 4px solid var(--green);
+  }
+
+  .reading-worth__benefits-image {
+    grid-area: image;
+    min-height: 100%;
+    background: url("/img/kid_reading.jpg") center 42% / cover no-repeat;
+    border-right: 1px solid rgba(58, 58, 58, 0.08);
+  }
+
+  .reading-worth__benefits-list-title {
+    margin: 0;
+    font-size: 1.12rem;
+    line-height: 1.45;
+  }
+
+  .reading-worth__benefits-list {
+    display: grid;
+    gap: 0.8rem;
+    margin: 1.25rem 0 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--font-serif);
+    font-size: 1.02rem;
   }
 
   @media (max-width: 920px) {
-    .reading-worth__grid {
+    .reading-worth__reasons-grid,
+    .reading-worth__benefits {
       grid-template-columns: 1fr;
+    }
+
+    .reading-worth__benefits {
+      grid-template-areas:
+        "image"
+        "intro"
+        "list";
+    }
+
+    .reading-worth__benefits-image {
+      min-height: 280px;
+      border-bottom: 1px solid rgba(58, 58, 58, 0.08);
+      border-right: 0;
+    }
+
+    .reading-worth__reason {
+      min-height: auto;
+    }
+
+    .reading-worth__reason-mark {
+      margin-bottom: 1.8rem;
     }
   }
 
   @media (max-width: 640px) {
-    .reading-worth__card {
-      padding: 1.4rem;
+    .reading-worth__benefits {
+      border-width: 7px;
     }
 
-    .reading-worth__item {
-      padding: 1rem;
+    .reading-worth__reason {
+      padding: 1.3rem;
+    }
+
+    .reading-worth__benefits-intro {
+      padding: 1.5rem 1.3rem 1rem;
+    }
+
+    .reading-worth__benefits-list-wrap {
+      margin: 0 1.3rem 1.3rem;
+      padding: 1.3rem;
     }
   }
 </style>

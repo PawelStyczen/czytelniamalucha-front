@@ -4,16 +4,22 @@ const methods = [
     title: "Pierwsze słowa - czytanie globalne",
     audience: "Dla dzieci, które zaczynają swoją przygodę z czytaniem.",
     text: "Dziecko poznaje całe wyrazy, rozwija pamięć wzrokową i oswaja się z językiem. Można się bawić nawet z maluszkami. Dziecko poznaje całe wyrazy, rozwija pamięć wzrokową i oswaja się z językiem poprzez zabawę.",
+    image: "/public/img/product/1.jpg",
+    imageAlt: "Pierwsze słowa - czytanie globalne",
   },
   {
     title: "Litery i alfabet",
     audience: "Dla dzieci, które zaczynają poznawać zapis języka.",
     text: "Materiały pomagają łączyć obraz, dźwięk i znak graficzny litery. Poznawanie liter staje się naturalnym etapem odkrywania świata słów.",
+    image: "/public/img/product/2.jpg",
+    imageAlt: "Litery i alfabet",
   },
   {
     title: "Sylaby i pierwsze czytanie",
     audience: "Dla dzieci gotowych łączyć elementy w całość.",
     text: "Materiały wspierają płynne przechodzenie od sylab do wyrazów i prostych zdań. Stopniowe łączenie sylab pomaga dziecku nabrać pewności podczas samodzielnego czytania.",
+    image: "/public/img/product/3.jpg",
+    imageAlt: "Sylaby i pierwsze czytanie",
   },
 ];
 ---
@@ -37,10 +43,27 @@ const methods = [
       {
         methods.map((method) => (
           <article class="learning-method card paper-texture">
-            <div class="learning-method__placeholder" aria-hidden="true">
-              <span class="learning-method__placeholder-frame">
-                <span class="learning-method__placeholder-icon">✦</span>
-              </span>
+            <div
+              class:list={[
+                "learning-method__media",
+                { "learning-method__media--placeholder": !method.image },
+              ]}
+            >
+              {method.image ? (
+                <img
+                  src={method.image}
+                  alt={method.imageAlt || method.title}
+                  class="learning-method__image"
+                  loading="lazy"
+                />
+              ) : (
+                <span
+                  class="learning-method__placeholder-frame"
+                  aria-hidden="true"
+                >
+                  <span class="learning-method__placeholder-icon">✦</span>
+                </span>
+              )}
             </div>
 
             <div class="learning-method__content">
@@ -158,15 +181,16 @@ const methods = [
     grid-template-columns: minmax(0, 1.25fr) minmax(250px, 0.75fr);
   }
 
-  .learning-method:nth-child(even) .learning-method__placeholder {
+  .learning-method:nth-child(even) .learning-method__media {
     order: 2;
   }
 
-  .learning-method__placeholder {
+  .learning-method__media {
+    position: relative;
     display: grid;
     place-items: center;
-    min-height: 100%;
-    padding: 1.5rem;
+    min-height: 305px;
+    overflow: hidden;
     background:
       radial-gradient(
         circle at 30% 25%,
@@ -175,6 +199,20 @@ const methods = [
       ),
       var(--method-color);
     border-bottom: 5px solid var(--method-accent);
+  }
+
+  .learning-method__media--placeholder {
+    padding: 1.5rem;
+  }
+
+  .learning-method__image {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
   }
 
   .learning-method__placeholder-frame {
@@ -259,7 +297,7 @@ const methods = [
       grid-template-columns: 1fr;
     }
 
-    .learning-method:nth-child(even) .learning-method__placeholder {
+    .learning-method:nth-child(even) .learning-method__media {
       order: 0;
     }
 
@@ -276,8 +314,12 @@ const methods = [
       --card-rotation: -0.15deg;
     }
 
-    .learning-method__placeholder {
+    .learning-method__media {
       min-height: 230px;
+    }
+
+    .learning-method__image {
+      min-height: 0;
     }
 
     .learning-method__placeholder-frame {

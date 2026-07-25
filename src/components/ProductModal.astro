@@ -3,7 +3,7 @@
  * ProductModal: 1 modal obsługujący wszystkie produkty.
  * Dane produktu lecą w data-product jako JSON (string).
  *
- * W products dodaj: details: { inside: [...], images: [...] }
+ * W products dodaj: details: { description: "...", images: [...] }
  */
 ---
 
@@ -38,9 +38,9 @@
     <div class="pmodal__grid">
       <div>
         <div class="pill" style="margin-bottom:10px;">
-          <span class="icon-dot" aria-hidden="true"></span> Co jest w środku?
+          <span class="icon-dot" aria-hidden="true"></span> Opis
         </div>
-        <ul id="pmodalInside" class="list" style="margin:0;"></ul>
+        <div id="pmodalDescription" class="pmodal__description"></div>
 
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;">
           <button
@@ -148,6 +148,11 @@
     border: 1px solid rgba(58, 58, 58, 0.12);
     background: rgba(244, 239, 234, 0.9);
   }
+  .pmodal__description {
+    font-family: var(--font-serif);
+    line-height: 1.8;
+    white-space: pre-line;
+  }
 </style>
 
 <script is:inline>
@@ -156,7 +161,7 @@
   const subEl = document.getElementById("pmodalSub");
   const badgeEl = document.getElementById("pmodalBadge");
   const priceEl = document.getElementById("pmodalPrice");
-  const insideEl = document.getElementById("pmodalInside");
+  const descriptionEl = document.getElementById("pmodalDescription");
   const imagesEl = document.getElementById("pmodalImages");
   const buyBtn = document.getElementById("pmodalBuy");
 
@@ -173,14 +178,7 @@
     badgeEl.append(` ${product.badge || "Zestaw"}`);
     priceEl.textContent = product.priceLabel || "";
 
-    // inside list
-    insideEl.innerHTML = "";
-    const inside = product.details?.inside || [];
-    inside.forEach((it) => {
-      const li = document.createElement("li");
-      li.textContent = it;
-      insideEl.appendChild(li);
-    });
+    descriptionEl.textContent = product.details?.description || "";
 
     // images
     imagesEl.innerHTML = "";

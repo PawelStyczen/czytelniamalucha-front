@@ -2,6 +2,8 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import LatestPosts from "../components/LatestPosts.astro";
 import Hero from "../components/Hero.astro";
+import FirstSteps from "../components/FirstSteps.astro";
+import LearningMethods from "../components/LearningMethods.astro";
 import GlobalReadingIntro from "../components/GlobalReadingIntro.astro";
 import GlobalReadingWhyWorth from "../components/GlobalReadingWhyWorth.astro";
 import OfferSection from "../components/OfferSection.astro";
@@ -61,6 +63,26 @@ const sections = {
       q: "Na jakim papierze drukować?",
       a: "Na start wystarczy zwykły papier. Dla trwałości: grubszy papier lub laminowanie.",
     },
+    {
+      q: "Od jakiego wieku można zacząć naukę czytania?",
+      a: "Nie ma jednego idealnego wieku. Wiele dzieci zaczyna interesować się literami i słowami już około 2-3 roku życia, ale każde dziecko rozwija się indywidualnie. Entuzjaści globalnego czytania pokazują pierwsze wyrazy nawet 3-miesięcznym maluszkom.",
+    },
+    {
+      q: "Czy muszę wybrać jedną metodę?",
+      a: "Nie. Metody mogą się uzupełniać. Najważniejsze jest dopasowanie sposobu nauki do dziecka.",
+    },
+    {
+      q: "Czy materiały są tylko dla dzieci, które już znają litery?",
+      a: "Nie. Mamy zestawy zarówno dla początkujących, jak i dla dzieci robiących kolejne kroki w nauce czytania.",
+    },
+    {
+      q: "Czy muszę drukować materiały na grubym papierze?",
+      a: "Nie. Większość materiałów można wydrukować na zwykłym papierze. Dla większej trwałości warto je zalaminować lub wydrukować na grubszym papierze.",
+    },
+    {
+      q: "Jak długo pracować z dzieckiem?",
+      a: "Najlepiej krótko, ale regularnie. Nawet 5–10 minut dziennie może przynieść bardzo dobre efekty.",
+    },
   ],
 };
 ---
@@ -73,14 +95,18 @@ const sections = {
     <!-- HERO -->
     <Hero
       title="Pomóż dziecku zakochać się w czytaniu."
-      lead="Materiały PDF do czytania globalnego inspirowane Montessori — spokojne, estetyczne i gotowe do pracy z dzieckiem w domu."
+      lead="Wspólna nauka może być pełna radości. Tworzymy materiały, które pomagają dzieciom stawiać pierwsze kroki w świecie liter i słów."
       primaryHref="#oferta"
       primaryLabel="Zobacz zestawy"
       secondaryHref="/blog"
       secondaryLabel="Przeczytaj blog"
     />
 
-    <GlobalReadingIntro />
+    <FirstSteps />
+
+    <LearningMethods />
+
+    <!-- <GlobalReadingIntro /> -->
 
     <GlobalReadingWhyWorth />
 

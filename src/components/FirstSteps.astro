@@ -1,0 +1,209 @@
+---
+const questions = [
+  {
+    icon: "🌱",
+    text: "kiedy zacząć",
+  },
+  {
+    icon: "📚",
+    text: "jakie materiały wybrać",
+  },
+  {
+    icon: "🧭",
+    text: "jaką metodę zastosować",
+  },
+  {
+    icon: "☀️",
+    text: "jak sprawić, żeby nauka nie zamieniła się w obowiązek",
+  },
+];
+---
+
+<section class="first-steps section" aria-labelledby="first-steps-title">
+  <div class="container">
+    <div class="first-steps__intro">
+      <h2 class="h2 first-steps__title" id="first-steps-title">
+        Pierwsze kroki w nauce czytania nie muszą być trudne
+      </h2>
+      <p class="first-steps__lead">
+        Wielu rodziców chce wspierać swoje dziecko, ale nie wie:
+      </p>
+    </div>
+
+    <div class="first-steps__grid">
+      {
+        questions.map((question) => (
+          <article class="first-steps__card card paper-texture">
+            <span class="first-steps__icon" aria-hidden="true">
+              {question.icon}
+            </span>
+            <p class="first-steps__question">{question.text}</p>
+          </article>
+        ))
+      }
+    </div>
+
+    <p class="first-steps__summary">
+      Dlatego stworzyliśmy gotowe materiały, które możesz wykorzystać od razu.
+      Wystarczy wydrukować i zacząć wspólną przygodę z czytaniem.
+    </p>
+  </div>
+</section>
+
+<style>
+  .first-steps {
+  }
+
+  .first-steps__intro {
+    max-width: 760px;
+  }
+
+  .first-steps__title {
+    margin-bottom: 0.9rem;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+  }
+
+  .first-steps__lead {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: 1.08rem;
+    line-height: 1.8;
+    color: rgba(58, 58, 58, 0.82);
+  }
+
+  .first-steps__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.35rem;
+    margin-top: 2rem;
+    padding: 0.5rem 0;
+  }
+
+  .first-steps__card {
+    --note-bg: #f7e89a;
+    --note-edge: #ddca67;
+    --note-rotation: -1.7deg;
+
+    position: relative;
+    isolation: isolate;
+    min-height: 220px;
+    padding: 1.75rem 1.4rem 1.55rem;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.25) 0,
+        rgba(255, 255, 255, 0.05) 1.15rem,
+        transparent 1.15rem
+      ),
+      var(--note-bg);
+    border: 1px solid rgba(58, 58, 58, 0.07);
+    box-shadow:
+      0 3px 4px rgba(58, 58, 58, 0.1),
+      0 18px 24px rgba(58, 58, 58, 0.1);
+    text-align: center;
+    transform: rotate(var(--note-rotation));
+    transform-origin: center top;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .first-steps__card:nth-child(2) {
+    --note-bg: #cfe7ca;
+    --note-edge: #a9cda3;
+    --note-rotation: 1.2deg;
+  }
+
+  .first-steps__card:nth-child(3) {
+    --note-bg: #efd1d9;
+    --note-edge: #d8aab6;
+    --note-rotation: -0.8deg;
+  }
+
+  .first-steps__card:nth-child(4) {
+    --note-bg: #cfe2ee;
+    --note-edge: #a7c7d9;
+    --note-rotation: 1.7deg;
+  }
+
+  .first-steps__card::after {
+    content: "";
+    position: absolute;
+    right: -1px;
+    bottom: -1px;
+    width: 2rem;
+    height: 2rem;
+    background: linear-gradient(
+      135deg,
+      transparent 0 49%,
+      var(--note-edge) 50% 100%
+    );
+    filter: drop-shadow(-2px -2px 2px rgba(58, 58, 58, 0.08));
+    pointer-events: none;
+  }
+
+  .first-steps__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.42);
+    border: 1px solid rgba(58, 58, 58, 0.08);
+    box-shadow: 0 2px 5px rgba(58, 58, 58, 0.08);
+    font-size: 1.45rem;
+  }
+
+  .first-steps__question {
+    margin: 1.35rem 0 0;
+    font-family: var(--font-serif);
+    font-size: 1.06rem;
+    line-height: 1.65;
+    color: rgba(58, 58, 58, 0.86);
+  }
+
+  .first-steps__summary {
+    margin: 1.5rem 0 0;
+    padding: 1.35rem 1.5rem;
+
+    background: #fff;
+    font-family: var(--font-serif);
+    font-size: 1.04rem;
+    line-height: 1.8;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.04);
+  }
+
+  @media (max-width: 920px) {
+    .first-steps__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .first-steps__card {
+      min-height: 200px;
+      max-width: 300px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .first-steps__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .first-steps__card {
+      min-height: auto;
+      width: calc(100% - 12px);
+      margin-inline: auto;
+      min-height: 170px;
+      max-width: 250px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .first-steps__card {
+      transition: none;
+    }
+  }
+</style>

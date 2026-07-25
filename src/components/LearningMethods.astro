@@ -1,0 +1,299 @@
+---
+const methods = [
+  {
+    title: "Pierwsze słowa - czytanie globalne",
+    audience: "Dla dzieci, które zaczynają swoją przygodę z czytaniem.",
+    text: "Dziecko poznaje całe wyrazy, rozwija pamięć wzrokową i oswaja się z językiem. Można się bawić nawet z maluszkami. Dziecko poznaje całe wyrazy, rozwija pamięć wzrokową i oswaja się z językiem poprzez zabawę.",
+  },
+  {
+    title: "Litery i alfabet",
+    audience: "Dla dzieci, które zaczynają poznawać zapis języka.",
+    text: "Materiały pomagają łączyć obraz, dźwięk i znak graficzny litery. Poznawanie liter staje się naturalnym etapem odkrywania świata słów.",
+  },
+  {
+    title: "Sylaby i pierwsze czytanie",
+    audience: "Dla dzieci gotowych łączyć elementy w całość.",
+    text: "Materiały wspierają płynne przechodzenie od sylab do wyrazów i prostych zdań. Stopniowe łączenie sylab pomaga dziecku nabrać pewności podczas samodzielnego czytania.",
+  },
+];
+---
+
+<section
+  class="learning-methods section"
+  aria-labelledby="learning-methods-title"
+>
+  <div class="container">
+    <div class="learning-methods__intro">
+      <h2 class="h2 learning-methods__title" id="learning-methods-title">
+        Wybierz sposób nauki, który pasuje do Twojego dziecka
+      </h2>
+      <p class="learning-methods__lead">
+        Każde dziecko rozwija się inaczej. Nie skupiamy się na jednej metodzie.
+        Tworzymy materiały wspierające różne drogi nauki czytania.
+      </p>
+    </div>
+
+    <div class="learning-methods__list">
+      {
+        methods.map((method) => (
+          <article class="learning-method card paper-texture">
+            <div class="learning-method__placeholder" aria-hidden="true">
+              <span class="learning-method__placeholder-frame">
+                <span class="learning-method__placeholder-icon">✦</span>
+              </span>
+            </div>
+
+            <div class="learning-method__content">
+              <h3 class="learning-method__title">{method.title}</h3>
+              <p class="learning-method__audience">{method.audience}</p>
+              <p class="learning-method__text">{method.text}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="learning-methods__cta card paper-texture">
+      <p class="learning-methods__cta-title">
+        Nie musisz tworzyć własnych pomocy ani szukać pojedynczych ćwiczeń.
+      </p>
+      <p class="learning-methods__cta-text">
+        Wybierz zestaw, wydrukuj i zacznij pracę z dzieckiem.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .learning-methods {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.35),
+        rgba(255, 255, 255, 0)
+      ),
+      var(--paper);
+  }
+
+  .learning-methods__intro {
+    max-width: 780px;
+    margin-bottom: 2rem;
+  }
+
+  .learning-methods__title {
+    margin-bottom: 0.9rem;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+  }
+
+  .learning-methods__lead {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: 1.08rem;
+    line-height: 1.8;
+    color: rgba(58, 58, 58, 0.82);
+  }
+
+  .learning-methods__list {
+    display: grid;
+    gap: 2rem;
+    padding: 0.75rem 0.4rem;
+  }
+
+  .learning-method {
+    --method-color: #e8d7a7;
+    --method-accent: #c5a95e;
+    --card-rotation: -0.55deg;
+
+    display: grid;
+    grid-template-columns: minmax(250px, 0.75fr) minmax(0, 1.25fr);
+    min-height: 310px;
+    overflow: hidden;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        rgba(90, 75, 55, 0.025) 0,
+        rgba(90, 75, 55, 0.025) 1px,
+        transparent 1px,
+        transparent 5px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.11) 0,
+        rgba(255, 255, 255, 0.11) 2px,
+        transparent 2px,
+        transparent 8px
+      ),
+      radial-gradient(
+        circle at 22% 18%,
+        rgba(120, 95, 70, 0.045),
+        transparent 38%
+      ),
+      rgba(255, 253, 248, 0.96);
+    border: 1px solid rgba(58, 58, 58, 0.09);
+    box-shadow:
+      0 4px 7px rgba(58, 58, 58, 0.07),
+      0 18px 34px rgba(0, 0, 0, 0.08);
+    transform: rotate(var(--card-rotation));
+    transform-origin: center;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .learning-method:nth-child(2) {
+    --method-color: #cfe3d1;
+    --method-accent: #7ba082;
+    --card-rotation: 0.45deg;
+  }
+
+  .learning-method:nth-child(3) {
+    --method-color: #d8e2ef;
+    --method-accent: #8ca4c0;
+    --card-rotation: -0.35deg;
+  }
+
+  .learning-method:nth-child(even) {
+    grid-template-columns: minmax(0, 1.25fr) minmax(250px, 0.75fr);
+  }
+
+  .learning-method:nth-child(even) .learning-method__placeholder {
+    order: 2;
+  }
+
+  .learning-method__placeholder {
+    display: grid;
+    place-items: center;
+    min-height: 100%;
+    padding: 1.5rem;
+    background:
+      radial-gradient(
+        circle at 30% 25%,
+        rgba(255, 255, 255, 0.5),
+        transparent 30%
+      ),
+      var(--method-color);
+    border-bottom: 5px solid var(--method-accent);
+  }
+
+  .learning-method__placeholder-frame {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    min-height: 220px;
+    border: 2px dashed rgba(58, 58, 58, 0.2);
+    background: rgba(255, 255, 255, 0.16);
+  }
+
+  .learning-method__placeholder-icon {
+    display: grid;
+    place-items: center;
+    width: 4.6rem;
+    height: 4.6rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    color: var(--method-accent);
+    font-size: 2rem;
+    box-shadow: 0 8px 20px rgba(58, 58, 58, 0.08);
+  }
+
+  .learning-method__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(1.6rem, 4vw, 3rem);
+  }
+
+  .learning-method__title {
+    margin: 0;
+    font-size: clamp(1.45rem, 2.5vw, 2rem);
+    line-height: 1.2;
+  }
+
+  .learning-method__audience {
+    margin: 0.85rem 0 0;
+    color: var(--green);
+    font-weight: 800;
+    line-height: 1.55;
+  }
+
+  .learning-method__text {
+    margin: 1rem 0 0;
+    font-family: var(--font-serif);
+    line-height: 1.8;
+    color: rgba(58, 58, 58, 0.8);
+  }
+
+  .learning-methods__cta {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(240px, 0.8fr);
+    gap: 2rem;
+    align-items: center;
+    margin-top: 1.5rem;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+
+    border: 1px solid rgba(107, 143, 113, 0.2);
+  }
+
+  .learning-methods__cta-title {
+    margin: 0;
+    font-size: clamp(1.3rem, 2.4vw, 1.8rem);
+    font-weight: 800;
+    line-height: 1.35;
+  }
+
+  .learning-methods__cta-text {
+    margin: 0;
+    padding-left: 1.5rem;
+    border-left: 1px solid rgba(58, 58, 58, 0.16);
+    font-family: var(--font-serif);
+    font-size: 1.06rem;
+    line-height: 1.75;
+  }
+
+  @media (max-width: 760px) {
+    .learning-method,
+    .learning-method:nth-child(even),
+    .learning-methods__cta {
+      grid-template-columns: 1fr;
+    }
+
+    .learning-method:nth-child(even) .learning-method__placeholder {
+      order: 0;
+    }
+
+    .learning-method {
+      min-height: auto;
+      --card-rotation: -0.25deg;
+    }
+
+    .learning-method:nth-child(2) {
+      --card-rotation: 0.2deg;
+    }
+
+    .learning-method:nth-child(3) {
+      --card-rotation: -0.15deg;
+    }
+
+    .learning-method__placeholder {
+      min-height: 230px;
+    }
+
+    .learning-method__placeholder-frame {
+      min-height: 180px;
+    }
+
+    .learning-methods__cta-text {
+      padding: 1.2rem 0 0;
+      border-top: 1px solid rgba(58, 58, 58, 0.16);
+      border-left: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .learning-method {
+      transition: none;
+    }
+  }
+</style>

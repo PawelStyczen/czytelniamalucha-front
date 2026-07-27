@@ -1,0 +1,266 @@
+---
+type DescriptionBlock =
+  | { type: "paragraph"; text: string }
+  | { type: "list"; items: string[] }
+  | { type: "heading"; text: string };
+
+type DescriptionSection = {
+  title: string;
+  blocks: DescriptionBlock[];
+};
+
+const { description } = Astro.props as { description: string };
+
+function parseBlocks(lines: string[]): DescriptionBlock[] {
+  const blocks: DescriptionBlock[] = [];
+  let paragraphLines: string[] = [];
+  let listItems: string[] = [];
+
+  const flushParagraph = () => {
+    if (paragraphLines.length === 0) return;
+
+    blocks.push({
+      type: "paragraph",
+      text: paragraphLines.join(" "),
+    });
+    paragraphLines = [];
+  };
+
+  const flushList = () => {
+    if (listItems.length === 0) return;
+
+    blocks.push({
+      type: "list",
+      items: listItems,
+    });
+    listItems = [];
+  };
+
+  lines.forEach((line) => {
+    const trimmedLine = line.trim();
+
+    if (!trimmedLine) {
+      flushParagraph();
+      flushList();
+      return;
+    }
+
+    const nestedHeading = trimmedLine.match(/^###\s+(.+)$/);
+    if (nestedHeading) {
+      flushParagraph();
+      flushList();
+      blocks.push({ type: "heading", text: nestedHeading[1] });
+      return;
+    }
+
+    const listItem = trimmedLine.match(/^[-*]\s+(.+)$/);
+    if (listItem) {
+      flushParagraph();
+      listItems.push(listItem[1]);
+      return;
+    }
+
+    flushList();
+    paragraphLines.push(trimmedLine);
+  });
+
+  flushParagraph();
+  flushList();
+
+  return blocks;
+}
+
+function parseDescription(value: string): DescriptionSection[] {
+  const sections: DescriptionSection[] = [];
+  let sectionTitle = "";
+  let sectionLines: string[] = [];
+
+  const flushSection = () => {
+    if (!sectionTitle) return;
+
+    sections.push({
+      title: sectionTitle,
+      blocks: parseBlocks(sectionLines),
+    });
+    sectionLines = [];
+  };
+
+  value.split(/\r?\n/).forEach((line) => {
+    const sectionHeading = line.trim().match(/^##(?!#)\s+(.+)$/);
+
+    if (sectionHeading) {
+      flushSection();
+      sectionTitle = sectionHeading[1];
+      return;
+    }
+
+    sectionLines.push(line);
+  });
+
+  flushSection();
+
+  if (sections.length > 0) return sections;
+
+  return [
+    {
+      title: "Opis produktu",
+      blocks: parseBlocks(value.split(/\r?\n/)),
+    },
+  ];
+}
+
+const sections = parseDescription(description);
+---
+
+<div class="product-accordion">
+  {
+    sections.map((section, index) => (
+      <details class="product-accordion__item" open={index === 0}>
+        <summary class="product-accordion__summary">
+          <h3 class="product-accordion__title">{section.title}</h3>
+        </summary>
+
+        <div class="product-accordion__content">
+          {section.blocks.map((block) => {
+            if (block.type === "heading") {
+              return <h4 class="product-accordion__nested-title">{block.text}</h4>;
+            }
+
+            if (block.type === "list") {
+              return (
+                <ul>
+                  {block.items.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              );
+            }
+
+            return <p>{block.text}</p>;
+          })}
+        </div>
+      </details>
+    ))
+  }
+</div>
+
+<style>
+  .product-accordion {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    color: rgba(58, 58, 58, 0.84);
+  }
+
+  .product-accordion__item {
+    overflow: hidden;
+    border: 1px solid rgba(58, 58, 58, 0.12);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.55);
+  }
+
+  .product-accordion__summary {
+    padding: 1rem 1.1rem;
+    cursor: pointer;
+    list-style: none;
+    transition:
+      background-color 0.18s ease,
+      color 0.18s ease;
+  }
+
+  .product-accordion__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .product-accordion__summary:hover {
+    background: rgba(224, 238, 225, 0.55);
+  }
+
+  .product-accordion__summary:focus-visible {
+    outline: 3px solid rgba(107, 143, 113, 0.38);
+    outline-offset: -3px;
+  }
+
+  .product-accordion__title {
+    position: relative;
+    margin: 0;
+    padding-right: 2.5rem;
+    font-family: var(--font-serif);
+    font-size: clamp(1.05rem, 2vw, 1.25rem);
+    line-height: 1.35;
+    color: inherit;
+  }
+
+  .product-accordion__title::before {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    content: "";
+    background:
+      linear-gradient(#58775e, #58775e) center / 0.7rem 2px no-repeat,
+      rgba(107, 143, 113, 0.14);
+    transform: translateY(-50%);
+  }
+
+  .product-accordion__title::after {
+    position: absolute;
+    top: 50%;
+    right: calc(0.75rem - 1px);
+    width: 2px;
+    height: 0.7rem;
+    border-radius: 999px;
+    background: #58775e;
+    content: "";
+    transform: translateY(-50%);
+    transition: transform 0.18s ease;
+  }
+
+  .product-accordion__item[open] .product-accordion__summary {
+    color: #4f6d55;
+    background: rgba(224, 238, 225, 0.42);
+  }
+
+  .product-accordion__item[open] .product-accordion__title::after {
+    transform: translateY(-50%) scaleY(0);
+  }
+
+  .product-accordion__content {
+    padding: 0.15rem 1.1rem 1.15rem;
+    border-top: 1px solid rgba(58, 58, 58, 0.08);
+    font-family: var(--font-serif);
+    line-height: 1.75;
+  }
+
+  .product-accordion__content p,
+  .product-accordion__content ul {
+    margin: 0.9rem 0 0;
+  }
+
+  .product-accordion__content ul {
+    padding-left: 1.25rem;
+  }
+
+  .product-accordion__content li + li {
+    margin-top: 0.35rem;
+  }
+
+  .product-accordion__nested-title {
+    margin: 1.15rem 0 0;
+    font-size: 1.02rem;
+    line-height: 1.45;
+    color: rgba(58, 58, 58, 0.92);
+  }
+
+  @media (max-width: 640px) {
+    .product-accordion__summary {
+      padding: 0.9rem;
+    }
+
+    .product-accordion__content {
+      padding: 0.1rem 0.9rem 1rem;
+    }
+  }
+</style>

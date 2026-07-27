@@ -1,17 +1,32 @@
 ---
 const {
-  title = "Pomóż dziecku zakochać się w czytaniu.",
+  title = "Pomóż dziecku Zakochać się w czytaniu.",
   lead = "Spokojne i estetyczne materiały PDF do czytania globalnego inspirowane Montessori.",
   primaryHref = "#oferta",
   primaryLabel = "Zobacz zestawy",
 } = Astro.props;
+
+const accentPhrase = "zakochać się";
+const accentIndex = title.indexOf(accentPhrase);
+const titleBeforeAccent =
+  accentIndex >= 0 ? title.slice(0, accentIndex) : title;
+const titleAccent =
+  accentIndex >= 0
+    ? title.slice(accentIndex, accentIndex + accentPhrase.length)
+    : "";
+const titleAfterAccent =
+  accentIndex >= 0 ? title.slice(accentIndex + accentPhrase.length) : "";
 ---
 
 <section class="hero" id="hero">
   <div class="container hero__container">
     <div class="hero__grid">
       <div class="hero__content">
-        <h1 class="hero__title">{title}</h1>
+        <h1 class="hero__title">
+          {titleBeforeAccent}
+          {titleAccent && <span class="hero__title-accent">{titleAccent}</span>}
+          {titleAfterAccent}
+        </h1>
         <p class="hero__lead">{lead}</p>
 
         <div class="hero__actions">
@@ -89,6 +104,15 @@ const {
     letter-spacing: -0.05em;
     font-weight: 800;
     text-wrap: balance;
+  }
+
+  .hero__title .hero__title-accent {
+    color: #c5743f;
+    -webkit-text-fill-color: #c5743f;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 600;
+    letter-spacing: -0.035em;
   }
 
   .hero__lead {

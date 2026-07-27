@@ -1,7 +1,8 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import CheckoutModal from "../../components/CheckoutModal.astro";
-import { getProductById, getProductHref, products } from "../../data/products";
+import ProductDescriptionAccordion from "../../components/ProductDescriptionAccordion.astro";
+import { getProductById, products } from "../../data/products";
 
 export function getStaticPaths() {
   return products.map((product) => ({
@@ -71,10 +72,11 @@ const offerHref = "/#oferta";
 
       <section class="product-page__details-grid">
         <article class="product-page__panel card">
-          <h2 class="h2 product-page__section-title">Opis</h2>
-          <div class="product-page__description">
-            {product.details.description}
-          </div>
+          <div class="kicker">Szczegóły zestawu</div>
+          <h2 class="h2 product-page__section-title">Opis produktu</h2>
+          <ProductDescriptionAccordion
+            description={product.details.description}
+          />
         </article>
 
         <article class="product-page__panel card">
@@ -257,14 +259,6 @@ const offerHref = "/#oferta";
 
   .product-page__section-title {
     margin-top: 0.4rem;
-  }
-
-  .product-page__description {
-    margin-top: 1rem;
-    font-family: var(--font-serif);
-    line-height: 1.8;
-    color: rgba(58, 58, 58, 0.82);
-    white-space: pre-line;
   }
 
   .product-page__gallery {

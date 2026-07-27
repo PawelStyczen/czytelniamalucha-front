@@ -1,7 +1,7 @@
 ---
 title: "Pierwszy wpis: Otwarcie Czytelni Malucha"
 description: "Poznaj Czytelnię Malucha i naszą misję wspierania dzieci w odkrywaniu radości czytania."
-image: "/img/offers/p2-cover.jpg"
+image: "/img/blog/otwarcie-czytelni-malucha.jpg"
 pubDate: 2026-03-23
 draft: false
 ---

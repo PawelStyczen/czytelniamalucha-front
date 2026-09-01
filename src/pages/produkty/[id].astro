@@ -2,20 +2,35 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import CheckoutModal from "../../components/CheckoutModal.astro";
 import ProductDescriptionAccordion from "../../components/ProductDescriptionAccordion.astro";
-import { getProductById, products } from "../../data/products";
+import { productService } from "../../services/productService";
+import type { Product } from "../../types/product";
 
-export function getStaticPaths() {
-  return products.map((product) => ({
-    params: { id: product.id },
-    props: { product },
-  }));
+export async function getStaticPaths() {
+  const products = await productService.getProducts();
+
+  return Promise.all(
+    products.map(async (productSummary) => {
+      const productDetails = await productService.getProductById(
+        productSummary.id,
+      );
+
+      return {
+        params: { id: productSummary.id },
+        props: {
+          product: {
+            ...productSummary,
+            ...productDetails,
+          },
+        },
+      };
+    }),
+  );
 }
 
-const { product } = Astro.props as {
-  product: NonNullable<ReturnType<typeof getProductById>>;
-};
+const { product } = Astro.props as { product: Product };
 
 const offerHref = "/#oferta";
+const checkoutEnabled = import.meta.env.DEV;
 ---
 
 <BaseLayout
@@ -60,10 +75,11 @@ const offerHref = "/#oferta";
             <button
               class="btn btn-primary"
               type="button"
-              disabled
-              aria-disabled="true"
+              data-checkout={checkoutEnabled ? product.id : undefined}
+              disabled={!checkoutEnabled}
+              aria-disabled={checkoutEnabled ? undefined : "true"}
             >
-              Kupno wkrótce
+              {checkoutEnabled ? "Kup teraz" : "Kupno wkrótce"}
             </button>
             <a class="btn btn-secondary" href={offerHref}>Wróć do oferty</a>
           </div>
@@ -130,7 +146,7 @@ const offerHref = "/#oferta";
     </div>
   </div>
 
-  <CheckoutModal defaultProductId={product.id} />
+  {checkoutEnabled && <CheckoutModal defaultProductId={product.id} />}
 </BaseLayout>
 
 <style>

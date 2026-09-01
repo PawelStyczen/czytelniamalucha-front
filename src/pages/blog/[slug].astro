@@ -1,32 +1,31 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { getCollection, render } from "astro:content";
+import { getCollection, render, type CollectionEntry } from "astro:content";
 
 export async function getStaticPaths() {
-  const posts = await getCollection(
-    "blog",
-    ({ data }: { data: any }) => !data.draft,
-  );
+  const posts = await getCollection("blog");
 
-  return posts.map((post: any) => ({
-    params: { slug: post.id },
+  return posts.map((post) => ({
+    params: { slug: post.data.slug },
     props: { post },
   }));
 }
 
-const { post } = Astro.props as { post: any };
+type BlogPostEntry = CollectionEntry<"blog">;
+
+const { post } = Astro.props as { post: BlogPostEntry };
 const { Content } = await render(post);
 ---
 
 <BaseLayout
   title={`${post.data.title} — Czytelnia Malucha`}
-  description={post.data.description}
+  description={post.data.excerpt}
 >
   <main class="section container">
     <article class="card" style="padding:28px;max-width:1024px;margin:0 auto;">
       <div class="blog-hero-image">
         <img
-          src={post.data.image}
+          src={post.data.coverImage}
           alt={post.data.title}
           class="blog-hero-image__img"
         />
@@ -41,13 +40,23 @@ const { Content } = await render(post);
       </nav>
 
       <div class="muted small">
-        {post.data.pubDate.toLocaleDateString("pl-PL")}
+        {post.data.publishedAt.toLocaleDateString("pl-PL")} · {
+          post.data.authorName
+        }
       </div>
 
       <h1 class="h1" style="margin-top:10px;">{post.data.title}</h1>
       <p class="muted" style="margin-bottom:24px;">
-        {post.data.description}
+        {post.data.excerpt}
       </p>
+
+      {
+        post.data.tags.length > 0 && (
+          <ul class="blog-tags" aria-label="Tagi artykułu">
+            {post.data.tags.map((tag) => <li>{tag}</li>)}
+          </ul>
+        )
+      }
 
       <div class="blog-content">
         <Content />
@@ -107,6 +116,24 @@ const { Content } = await render(post);
   .blog-content {
     line-height: 1.8;
     font-size: 1.05rem;
+  }
+
+  .blog-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0 0 1.5rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .blog-tags li {
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+    background: rgba(107, 143, 113, 0.12);
+    color: #4f6d55;
+    font-size: 0.9rem;
+    font-weight: 700;
   }
 
   .blog-content h2,

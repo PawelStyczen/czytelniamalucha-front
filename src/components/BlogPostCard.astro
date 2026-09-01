@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { getBlogPostHref } from "../services/blogService";
 
 interface Props {
   post: CollectionEntry<"blog">;
@@ -16,17 +17,18 @@ const {
 } = Astro.props;
 
 const HeadingTag = headingTag;
+const postHref = getBlogPostHref(post.data.slug);
 ---
 
 <a
-  href={`/blog/${post.id}/`}
+  href={postHref}
   class="blog-post-card paper-shadow"
   data-variant={variant}
 >
   <div class="blog-post-card__surface paper-texture">
     <div class="blog-post-card__media">
       <img
-        src={post.data.image}
+        src={post.data.coverImage}
         alt={post.data.title}
         class="blog-post-card__image"
         loading="lazy"
@@ -34,12 +36,12 @@ const HeadingTag = headingTag;
     </div>
 
     <div class="blog-post-card__meta">
-      {post.data.pubDate.toLocaleDateString("pl-PL")}
+      {post.data.publishedAt.toLocaleDateString("pl-PL")}
     </div>
 
     <HeadingTag class="blog-post-card__title">{post.data.title}</HeadingTag>
 
-    <p class="blog-post-card__desc">{post.data.description}</p>
+    <p class="blog-post-card__desc">{post.data.excerpt}</p>
 
     <span class="blog-post-card__cta">{ctaLabel}</span>
   </div>

@@ -1,13 +1,13 @@
 ---
 import BlogPostCard from "./BlogPostCard.astro";
-import { getPublishedBlogPosts } from "../utils/blog";
+import { getBlogPosts } from "../utils/blog";
 
 const {
   title = "Na blogu",
   subtitle = "Przeczytaj najnowsze artykuły o czytaniu globalnym, Montessori i wspieraniu rozwoju dziecka.",
 } = Astro.props;
 
-const latestPosts = await getPublishedBlogPosts(3);
+const latestPosts = await getBlogPosts(3);
 ---
 
 <section class="latest-posts section container">

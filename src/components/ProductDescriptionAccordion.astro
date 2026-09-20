@@ -1,4 +1,6 @@
 ---
+import ProductInlineMarkdown from "./ProductInlineMarkdown.astro";
+
 type DescriptionBlock =
   | { type: "paragraph"; text: string }
   | { type: "list"; items: string[] }
@@ -117,26 +119,32 @@ const sections = parseDescription(description);
     sections.map((section, index) => (
       <details class="product-accordion__item" open={index === 0}>
         <summary class="product-accordion__summary">
-          <h3 class="product-accordion__title">{section.title}</h3>
+          <h3 class="product-accordion__title">
+            <ProductInlineMarkdown text={section.title} />
+          </h3>
         </summary>
 
         <div class="product-accordion__content">
           {section.blocks.map((block) => {
             if (block.type === "heading") {
-              return <h4 class="product-accordion__nested-title">{block.text}</h4>;
+              return (
+                <h4 class="product-accordion__nested-title">
+                  <ProductInlineMarkdown text={block.text} />
+                </h4>
+              );
             }
 
             if (block.type === "list") {
               return (
                 <ul>
                   {block.items.map((item) => (
-                    <li>{item}</li>
+                    <li><ProductInlineMarkdown text={item} /></li>
                   ))}
                 </ul>
               );
             }
 
-            return <p>{block.text}</p>;
+            return <p><ProductInlineMarkdown text={block.text} /></p>;
           })}
         </div>
       </details>

@@ -1,9 +1,13 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import LegalPageLayout from "../components/LegalPageLayout.astro";
-import { getCurrentTerms } from "../services/legalDocumentService";
+import {
+  formatLegalEffectiveDate,
+  getCurrentTerms,
+} from "../services/legalDocumentService";
 
 const terms = await getCurrentTerms();
+const effectiveDate = formatLegalEffectiveDate(terms.effectiveFrom);
 ---
 
 <BaseLayout
@@ -15,6 +19,7 @@ const terms = await getCurrentTerms();
     description={terms.description}
     currentLabel="Regulamin"
   >
+    <p><strong>Data obowiązywania:</strong> {effectiveDate}</p>
     <p class="document-download">
       <a href={terms.pdfUrl} target="_blank" rel="noopener">
         Pobierz regulamin w formacie PDF

@@ -17,13 +17,44 @@ const navLinks = [
 <header class="nav-shell">
   <nav class="nav-desktop" aria-label="Nawigacja główna">
     <div class="nav-desktop__inner">
-      <a href="/" class="nav-brand" aria-label="Czytelnia Malucha">
-        <img
-          src="/img/czytelnia-malucha-logo.svg"
-          alt="Logo Czytelnia Malucha"
-          class="nav-brand__logo"
-        />
-      </a>
+      <div class="nav-brand-group">
+        <a href="/" class="nav-brand" aria-label="Czytelnia Malucha">
+          <img
+            src="/img/czytelnia-malucha-logo.svg"
+            alt="Logo Czytelnia Malucha"
+            class="nav-brand__logo"
+          />
+        </a>
+
+        <div class="nav-socials" aria-label="Media społecznościowe">
+          <a
+            class="nav-social-link"
+            href="https://www.facebook.com/profile.php?id=61592400278330&amp;mibextid=wwXIfr&amp;rdid=wu8n9Mvv3up4k6W9&amp;share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1JxdoXxrVy%2F%3Fmibextid%3DwwXIfr"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Czytelnia Malucha na Facebooku (otwiera w nowej karcie)"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M14 8.5V7c0-.8.5-1 1-1h2V3h-2.7C11.5 3 10 4.7 10 7.3v1.2H7V12h3v9h4v-9h2.7l.5-3.5H14Z"
+              ></path>
+            </svg>
+          </a>
+          <a
+            class="nav-social-link"
+            href="https://www.instagram.com/czytelniamalucha/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Czytelnia Malucha na Instagramie (otwiera w nowej karcie)"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+              <circle cx="12" cy="12" r="4"></circle>
+              <circle class="nav-social-link__dot" cx="17.4" cy="6.6" r="1"></circle>
+            </svg>
+          </a>
+        </div>
+      </div>
 
       <div class="nav-desktop__links">
         {
@@ -62,6 +93,14 @@ const navLinks = [
       </div>
 
       {
+        showCta && (
+          <a class="btn btn-primary nav-mobile__menu-cta" href="/#oferta">
+            Zobacz ofertę
+          </a>
+        )
+      }
+
+      {
         navLinks.map((link) => (
           <a href={link.href} class="nav-mobile__menu-link">
             {link.label}
@@ -71,25 +110,48 @@ const navLinks = [
     </div>
 
     <div class="nav-mobile__bar">
-      <a
-        href="/"
-        class="nav-brand nav-brand--mobile"
-        aria-label="Czytelnia Malucha"
-      >
-        <img
-          src="/img/czytelnia-malucha-logo.svg"
-          alt="Logo Czytelnia Malucha"
-          class="nav-brand__logo nav-brand__logo--mobile"
-        />
-      </a>
+      <div class="nav-brand-group">
+        <a
+          href="/"
+          class="nav-brand nav-brand--mobile"
+          aria-label="Czytelnia Malucha"
+        >
+          <img
+            src="/img/czytelnia-malucha-logo.svg"
+            alt="Logo Czytelnia Malucha"
+            class="nav-brand__logo nav-brand__logo--mobile"
+          />
+        </a>
 
-      {
-        showCta && (
-          <a class="btn btn-primary nav-mobile__cta" href="/#oferta">
-            Zobacz ofertę
+        <div class="nav-socials" aria-label="Media społecznościowe">
+          <a
+            class="nav-social-link"
+            href="https://www.facebook.com/profile.php?id=61592400278330&amp;mibextid=wwXIfr&amp;rdid=wu8n9Mvv3up4k6W9&amp;share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1JxdoXxrVy%2F%3Fmibextid%3DwwXIfr"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Czytelnia Malucha na Facebooku (otwiera w nowej karcie)"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M14 8.5V7c0-.8.5-1 1-1h2V3h-2.7C11.5 3 10 4.7 10 7.3v1.2H7V12h3v9h4v-9h2.7l.5-3.5H14Z"
+              ></path>
+            </svg>
           </a>
-        )
-      }
+          <a
+            class="nav-social-link"
+            href="https://www.instagram.com/czytelniamalucha/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Czytelnia Malucha na Instagramie (otwiera w nowej karcie)"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+              <circle cx="12" cy="12" r="4"></circle>
+              <circle class="nav-social-link__dot" cx="17.4" cy="6.6" r="1"></circle>
+            </svg>
+          </a>
+        </div>
+      </div>
 
       <button
         id="mobileNavToggle"
@@ -116,6 +178,13 @@ const navLinks = [
   .nav-brand {
     display: flex;
     align-items: center;
+    flex: 0 0 auto;
+  }
+
+  .nav-brand-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     flex: 0 0 auto;
   }
 
@@ -155,15 +224,66 @@ const navLinks = [
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
+    gap: clamp(0.5rem, 1vw, 1rem);
   }
 
   .nav-desktop__links {
     display: flex;
     align-items: center;
-    gap: 14px;
-    flex-wrap: wrap;
+    gap: clamp(2px, 1vw, 14px);
+    flex-wrap: nowrap;
     margin-left: auto;
+  }
+
+  .nav-socials {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+    gap: 0.1rem;
+  }
+
+  .nav-desktop__cta {
+    white-space: nowrap;
+  }
+
+  .nav-social-link {
+    display: inline-flex;
+    width: 36px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    color: #b38f78;
+    transition:
+      color 0.18s ease,
+      background 0.18s ease;
+  }
+
+  .nav-social-link:hover {
+    color: #8f6d57;
+    background: var(--paper);
+  }
+
+  .nav-social-link:focus-visible {
+    outline: 2px solid var(--green);
+    outline-offset: 2px;
+  }
+
+  .nav-social-link svg {
+    width: 19px;
+    height: 19px;
+    fill: currentColor;
+  }
+
+  .nav-social-link rect,
+  .nav-social-link circle:not(.nav-social-link__dot) {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+  }
+
+  .nav-social-link__dot {
+    stroke: none;
   }
 
   .nav-mobile {
@@ -189,9 +309,9 @@ const navLinks = [
       width: min(360px, 100%);
       margin: 10px auto 0;
       display: grid;
-      grid-template-columns: auto 1fr auto;
+      grid-template-columns: minmax(0, 1fr) auto;
       align-items: center;
-      gap: 1em;
+      gap: 0.4rem;
       padding: 10px 12px;
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.95);
@@ -205,11 +325,9 @@ const navLinks = [
       height: 40px;
     }
 
-    .nav-mobile__cta {
-      justify-self: stretch;
-      justify-content: center;
-      min-width: 0;
-      white-space: nowrap;
+    .nav-mobile__bar .nav-social-link {
+      width: 36px;
+      height: 36px;
     }
 
     .nav-mobile__toggle {
@@ -259,7 +377,7 @@ const navLinks = [
       top: 0;
       right: 0;
       display: flex;
-      width: min(360px, calc(100vw - 150px));
+      width: min(320px, calc(100vw - 48px));
       height: 100dvh;
       flex-direction: column;
       gap: 0.35rem;
@@ -338,22 +456,21 @@ const navLinks = [
       font-weight: 600;
       text-decoration: none;
     }
+
+    .nav-mobile__menu-cta {
+      margin-bottom: 0.5rem;
+      white-space: nowrap;
+    }
   }
 
   @media (max-width: 640px) {
     .nav-mobile__bar {
-      grid-template-columns: auto minmax(0, 1fr) auto;
-      padding: 9px 20px;
+      padding: 9px 16px;
       margin-top: 8px;
     }
 
     .nav-brand__logo--mobile {
       height: 36px;
-    }
-
-    .nav-mobile__cta {
-      font-size: 0.95rem;
-      padding: 0.85rem 0.95rem;
     }
   }
 </style>
@@ -405,7 +522,10 @@ const navLinks = [
       closeMobileNavMenu();
     }
 
-    if (target instanceof Element && target.closest(".nav-mobile__menu-link")) {
+    if (
+      target instanceof Element &&
+      target.closest(".nav-mobile__menu-link, .nav-mobile__menu-cta")
+    ) {
       closeMobileNavMenu();
     }
   });

@@ -1,7 +1,9 @@
 ---
 import ProductCard from "./ProductCard.astro";
-import { products } from "../data/products";
 import { checkoutEnabled } from "../config/checkout";
+import { productService } from "../services/productService";
+
+const products = await productService.getProducts();
 ---
 
 <section class="offer-section section container" id="oferta">

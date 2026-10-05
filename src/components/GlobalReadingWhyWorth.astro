@@ -15,25 +15,38 @@ const parentReasons = [
 ];
 
 const benefits = [
-  "✅ rozwój słownictwa",
-  "✅ koncentrację i pamięć",
-  "✅ pewność siebie dziecka",
-  "✅ zainteresowanie książkami",
-  "✅ samodzielność w poznawaniu świata",
+  "rozwój słownictwa",
+  "koncentrację i pamięć",
+  "pewność siebie dziecka",
+  "zainteresowanie książkami",
+  "samodzielność w poznawaniu świata",
 ];
 ---
 
 <section class="reading-worth section" aria-labelledby="parent-reasons-title">
   <div class="container">
     <div class="reading-worth__reasons">
-      <h2 class="h2 reading-worth__main-title" id="parent-reasons-title">
-        Dlaczego rodzice wybierają Czytelnię Malucha?
-      </h2>
+      <div class="reading-worth__header">
+        <div>
+          <div class="kicker">Dlaczego my</div>
+          <h2 class="h2 reading-worth__main-title" id="parent-reasons-title">
+            Dlaczego rodzice wybierają Czytelnię Malucha?
+          </h2>
+        </div>
+
+        <p class="reading-worth__header-text">
+          Proste materiały, spokojne tempo i nauka, która naturalnie wpisuje się
+          w codzienność rodziny.
+        </p>
+      </div>
 
       <div class="reading-worth__reasons-grid">
         {
-          parentReasons.map((reason) => (
+          parentReasons.map((reason, index) => (
             <article class="reading-worth__reason card paper-texture">
+              <span class="reading-worth__reason-mark" aria-hidden="true">
+                0{index + 1}
+              </span>
               <h3 class="reading-worth__reason-title">{reason.title}</h3>
               <p class="reading-worth__reason-text">{reason.text}</p>
             </article>
@@ -44,11 +57,11 @@ const benefits = [
 
     <div class="reading-worth__benefits card paper-texture">
       <div class="reading-worth__benefits-intro">
-        <h2 class="h2 reading-worth__benefits-title">Dlaczego warto?</h2>
+        <h2 class="h2 reading-worth__benefits-title">Dobry początek</h2>
         <p class="reading-worth__benefits-lead">
           Najważniejsze nie jest to, jak szybko dziecko zacznie czytać.
           Najważniejsze jest, aby pierwsze spotkanie z literami kojarzyło się z
-          ciekawością i radością.
+          <b> ciekawością i radością</b>.
         </p>
       </div>
 
@@ -57,8 +70,25 @@ const benefits = [
           Nauka czytania od najmłodszych lat wspiera:
         </h3>
         <ul class="reading-worth__benefits-list">
-          {benefits.map((benefit) => <li>{benefit}</li>)}
+          {
+            benefits.map((benefit) => (
+              <li>
+                <span class="reading-worth__benefit-check" aria-hidden="true">
+                  ✓
+                </span>
+                <span>{benefit}</span>
+              </li>
+            ))
+          }
         </ul>
+
+        <a
+          class="reading-worth__link"
+          href="/globalne-czytanie-dlaczego-warto/"
+        >
+          Dlaczego warto czytać od najmłodszych lat
+          <span aria-hidden="true">→</span>
+        </a>
       </div>
 
       <div class="reading-worth__benefits-image" aria-hidden="true"></div>
@@ -74,15 +104,37 @@ const benefits = [
         rgba(107, 143, 113, 0.13),
         transparent 30%
       ),
+      radial-gradient(
+        circle at bottom right,
+        rgba(197, 116, 63, 0.1),
+        transparent 32%
+      ),
       rgba(255, 255, 255, 0.38);
+  }
+
+  .reading-worth__header {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 2rem;
   }
 
   .reading-worth__main-title {
     max-width: 18ch;
-    margin-bottom: 2rem;
+    margin: 0.55rem 0 0;
     font-size: clamp(2rem, 4vw, 3.2rem);
     line-height: 1.08;
     letter-spacing: -0.035em;
+  }
+
+  .reading-worth__header-text {
+    max-width: 39ch;
+    margin: 0 0 0.2rem;
+    font-family: var(--font-serif);
+    font-size: 1.04rem;
+    line-height: 1.75;
+    color: rgba(58, 58, 58, 0.75);
   }
 
   .reading-worth__reasons-grid {
@@ -92,9 +144,11 @@ const benefits = [
   }
 
   .reading-worth__reason {
+    --reason-accent: #c5743f;
+
     position: relative;
-    min-height: 230px;
-    padding: 1.7rem;
+    min-height: 220px;
+    padding: 1.6rem 1.7rem 1.8rem;
     background:
       repeating-linear-gradient(
         0deg,
@@ -104,11 +158,17 @@ const benefits = [
         transparent 5px
       ),
       rgba(255, 253, 248, 0.95);
-    border: 1px solid rgba(58, 58, 58, 0.09);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.055);
+    border: 1px solid rgba(58, 58, 58, 0.1);
+    border-top: 5px solid var(--reason-accent);
+    box-shadow: 0 14px 28px rgba(58, 58, 58, 0.06);
+    transition:
+      transform 0.18s ease,
+      box-shadow 0.18s ease;
   }
 
   .reading-worth__reason:nth-child(2) {
+    --reason-accent: #6b8f71;
+
     background:
       repeating-linear-gradient(
         0deg,
@@ -121,6 +181,8 @@ const benefits = [
   }
 
   .reading-worth__reason:nth-child(3) {
+    --reason-accent: #b49370;
+
     background:
       repeating-linear-gradient(
         0deg,
@@ -132,12 +194,24 @@ const benefits = [
       rgba(238, 230, 217, 0.95);
   }
 
+  .reading-worth__reason:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 34px rgba(58, 58, 58, 0.09);
+  }
+
   .reading-worth__reason-mark {
-    display: block;
-    width: 2.6rem;
-    height: 0.35rem;
-    margin-bottom: 3rem;
-    background: var(--green);
+    display: inline-grid;
+    place-items: center;
+    width: 2.7rem;
+    height: 2.7rem;
+    margin-bottom: 2.5rem;
+    border: 1px solid color-mix(in srgb, var(--reason-accent) 45%, white);
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--reason-accent) 13%, white);
+    color: color-mix(in srgb, var(--reason-accent) 78%, #3a3a3a);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
   }
 
   .reading-worth__reason-title {
@@ -160,12 +234,12 @@ const benefits = [
       "image intro"
       "image list";
     align-items: stretch;
-    margin-top: 2rem;
+    margin-top: 2.4rem;
     padding: 0;
     overflow: hidden;
     background: #fff;
     border: 10px solid #fff;
-    outline: 1px solid rgba(58, 58, 58, 0.18);
+    outline: 1px solid rgba(58, 58, 58, 0.16);
     box-shadow:
       inset 0 0 0 2px rgba(255, 255, 255, 0.48),
       inset 0 0 14px rgba(58, 58, 58, 0.12),
@@ -175,7 +249,13 @@ const benefits = [
   .reading-worth__benefits-intro {
     grid-area: intro;
     padding: clamp(1.7rem, 5vw, 3.5rem) clamp(1.7rem, 5vw, 3.5rem) 1.5rem;
-    background: #fff;
+    background:
+      radial-gradient(
+        circle at top right,
+        rgba(197, 116, 63, 0.08),
+        transparent 35%
+      ),
+      #fff;
   }
 
   .reading-worth__benefits-title {
@@ -198,7 +278,7 @@ const benefits = [
     grid-area: list;
     margin: 0 clamp(1.7rem, 5vw, 3.5rem) clamp(1.7rem, 5vw, 3.5rem);
     padding: 1.6rem;
-    background: #fff;
+    background: rgba(244, 239, 234, 0.65);
     border-left: 4px solid var(--green);
   }
 
@@ -225,7 +305,62 @@ const benefits = [
     font-size: 1.02rem;
   }
 
+  .reading-worth__benefits-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+  }
+
+  .reading-worth__benefit-check {
+    display: inline-grid;
+    flex: 0 0 auto;
+    place-items: center;
+    width: 1.45rem;
+    height: 1.45rem;
+    margin-top: 0.08rem;
+    border-radius: 50%;
+    background: rgba(107, 143, 113, 0.15);
+    color: #58775e;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 900;
+  }
+
+  .reading-worth__link {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    width: fit-content;
+    margin-top: 2.5rem;
+    color: var(--green);
+    font-weight: 800;
+    line-height: 1.4;
+    text-decoration: underline;
+    text-decoration-color: rgba(107, 143, 113, 0.55);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.3rem;
+    transition:
+      color 0.18s ease,
+      gap 0.18s ease;
+  }
+
+  .reading-worth__link:hover {
+    gap: 0.9rem;
+    color: #4f6d55;
+  }
+
+  .reading-worth__link:focus-visible {
+    outline: 3px solid rgba(107, 143, 113, 0.38);
+    outline-offset: 0.35rem;
+  }
+
   @media (max-width: 920px) {
+    .reading-worth__header {
+      display: grid;
+      align-items: start;
+      gap: 1rem;
+    }
+
     .reading-worth__reasons-grid,
     .reading-worth__benefits {
       grid-template-columns: 1fr;
@@ -269,6 +404,17 @@ const benefits = [
     .reading-worth__benefits-list-wrap {
       margin: 0 1.3rem 1.3rem;
       padding: 1.3rem;
+    }
+
+    .reading-worth__link {
+      align-items: flex-start;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reading-worth__reason,
+    .reading-worth__link {
+      transition: none;
     }
   }
 </style>

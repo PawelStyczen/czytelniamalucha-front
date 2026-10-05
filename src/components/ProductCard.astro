@@ -1,6 +1,6 @@
 ---
-import type { Product } from "../data/products";
-import { getProductHref } from "../data/products";
+import { getProductHref } from "../services/productService";
+import type { Product } from "../types/product";
 
 const { product } = Astro.props as { product: Product };
 const productHref = getProductHref(product.id);

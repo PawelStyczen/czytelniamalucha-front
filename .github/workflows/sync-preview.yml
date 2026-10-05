@@ -1,0 +1,28 @@
+name: Sync preview with main
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-preview-with-main
+  cancel-in-progress: true
+
+jobs:
+  sync-preview:
+    name: Mirror main to preview
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out main
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Replace preview with main
+        run: git push origin HEAD:refs/heads/preview --force

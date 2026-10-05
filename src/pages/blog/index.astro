@@ -1,9 +1,9 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import BlogPostCard from "../../components/BlogPostCard.astro";
-import { getPublishedBlogPosts } from "../../utils/blog";
+import { getBlogPosts } from "../../utils/blog";
 
-const publishedPosts = await getPublishedBlogPosts();
+const posts = await getBlogPosts();
 ---
 
 <BaseLayout
@@ -24,9 +24,9 @@ const publishedPosts = await getPublishedBlogPosts();
 
     <section class="container blog-list-section">
       {
-        publishedPosts.length > 0 ? (
+        posts.length > 0 ? (
           <div class="blog-grid">
-            {publishedPosts.map((post) => (
+            {posts.map((post) => (
               <BlogPostCard post={post} headingTag="h2" />
             ))}
           </div>

@@ -1,4 +1,4 @@
-const apiBase = process.env.CHECKOUT_API_BASE;
+const apiBase = process.env.API_BASE_URL || process.env.CHECKOUT_API_BASE;
 const allowedRedirectHosts = (process.env.CHECKOUT_ALLOWED_REDIRECT_HOSTS ??
   "secure.payu.com,secure.snd.payu.com")
   .split(",")

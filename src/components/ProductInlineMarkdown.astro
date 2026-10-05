@@ -1,0 +1,61 @@
+---
+type InlineSegment = {
+  type: "text" | "strong" | "emphasis";
+  text: string;
+};
+
+const { text } = Astro.props as { text: string };
+
+function parseInlineMarkdown(value: string): InlineSegment[] {
+  const segments: InlineSegment[] = [];
+  const tokenPattern = /(\*\*[^*\n]+?\*\*|__[^_\n]+?__|\*[^*\n]+?\*|_[^_\n]+?_)/g;
+  let cursor = 0;
+
+  for (const match of value.matchAll(tokenPattern)) {
+    const index = match.index ?? cursor;
+    if (index > cursor) {
+      segments.push({ type: "text", text: value.slice(cursor, index) });
+    }
+
+    const token = match[0];
+    const isStrong = token.startsWith("**") || token.startsWith("__");
+    segments.push({
+      type: isStrong ? "strong" : "emphasis",
+      text: token.slice(isStrong ? 2 : 1, isStrong ? -2 : -1),
+    });
+    cursor = index + token.length;
+  }
+
+  if (cursor < value.length) {
+    segments.push({ type: "text", text: value.slice(cursor) });
+  }
+
+  return segments.length > 0 ? segments : [{ type: "text", text: value }];
+}
+
+const segments = parseInlineMarkdown(text);
+---
+
+{
+  segments.map((segment) => {
+    if (segment.type === "strong") {
+      return <strong>{segment.text}</strong>;
+    }
+
+    if (segment.type === "emphasis") {
+      return <em>{segment.text}</em>;
+    }
+
+    return segment.text;
+  })
+}
+
+<style>
+  strong {
+    font-weight: 800;
+  }
+
+  em {
+    font-style: italic;
+  }
+</style>

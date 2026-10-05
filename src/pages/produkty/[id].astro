@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import CheckoutModal from "../../components/CheckoutModal.astro";
+import { checkoutEnabled } from "../../config/checkout";
 import { getProductById, getProductHref, products } from "../../data/products";
 
 export function getStaticPaths() {
@@ -59,10 +60,11 @@ const offerHref = "/#oferta";
             <button
               class="btn btn-primary"
               type="button"
-              disabled
-              aria-disabled="true"
+              data-checkout={checkoutEnabled ? product.id : undefined}
+              disabled={!checkoutEnabled}
+              aria-disabled={checkoutEnabled ? undefined : "true"}
             >
-              Kupno wkrótce
+              {checkoutEnabled ? "Kup teraz" : "Kupno wkrótce"}
             </button>
             <a class="btn btn-secondary" href={offerHref}>Wróć do oferty</a>
           </div>
@@ -128,7 +130,7 @@ const offerHref = "/#oferta";
     </div>
   </div>
 
-  <CheckoutModal defaultProductId={product.id} />
+  {checkoutEnabled && <CheckoutModal defaultProductId={product.id} />}
 </BaseLayout>
 
 <style>

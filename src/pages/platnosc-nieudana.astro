@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import PaymentStatusIcon from "../components/PaymentStatusIcon.astro";
 import { publicSite } from "../config/publicSite";
 ---
 
@@ -9,6 +10,7 @@ import { publicSite } from "../config/publicSite";
 >
   <main class="container" style="padding:48px 0;max-width:860px;">
     <div class="card" style="padding:22px;">
+      <PaymentStatusIcon status="failure" />
       <div class="kicker">Płatność nieudana</div>
       <h1 class="h2" style="margin-top:8px;">
         Nie udało się dokończyć płatności.

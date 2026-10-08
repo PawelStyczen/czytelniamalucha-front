@@ -1,0 +1,56 @@
+---
+const { status } = Astro.props;
+const isSuccess = status === "success";
+---
+
+<div
+  class:list={[
+    "payment-status-icon",
+    isSuccess ? "payment-status-icon--success" : "payment-status-icon--failure",
+  ]}
+  aria-hidden="true"
+>
+  {
+    isSuccess ? (
+      <svg viewBox="0 0 80 80" focusable="false">
+        <path d="M18 41.5 32.5 56 62 25.5" />
+      </svg>
+    ) : (
+      <svg viewBox="0 0 80 80" focusable="false">
+        <path d="m24 24 32 32M56 24 24 56" />
+      </svg>
+    )
+  }
+</div>
+
+<style>
+  .payment-status-icon {
+    display: grid;
+    width: 112px;
+    height: 112px;
+    margin: 2px auto 22px;
+    place-items: center;
+    border-radius: 50%;
+    box-shadow: 0 10px 24px rgba(58, 58, 58, 0.12);
+  }
+
+  .payment-status-icon svg {
+    width: 72px;
+    height: 72px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 8;
+  }
+
+  .payment-status-icon--success {
+    color: #fff;
+    background: var(--green);
+  }
+
+  .payment-status-icon--failure {
+    color: #fff;
+    background: #bd4b4b;
+  }
+</style>

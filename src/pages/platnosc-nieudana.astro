@@ -1,0 +1,52 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { publicSite } from "../config/publicSite";
+---
+
+<BaseLayout
+  title="Płatność nieudana — Czytelnia Malucha"
+  description="Nie udało się dokończyć płatności za zamówienie."
+>
+  <main class="container" style="padding:48px 0;max-width:860px;">
+    <div class="card" style="padding:22px;">
+      <div class="kicker">Płatność nieudana</div>
+      <h1 class="h2" style="margin-top:8px;">
+        Nie udało się dokończyć płatności.
+      </h1>
+
+      <p class="muted" style="max-width:70ch;">
+        Zamówienie nie zostało opłacone, dlatego nie wysłaliśmy materiałów.
+        Możesz wrócić do produktu i spróbować ponownie.
+      </p>
+
+      <div
+        class="card"
+        style="padding:14px;margin-top:16px;background:rgba(244,239,234,.9);border:1px solid rgba(58,58,58,.10);"
+      >
+        <p style="margin:0;font-weight:700;">Pieniądze zostały pobrane?</p>
+        <p class="muted small" style="margin:6px 0 0;">
+          Nie ponawiaj płatności. Napisz do nas i podaj adres e-mail użyty przy
+          zamówieniu — sprawdzimy jego status.
+        </p>
+      </div>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;">
+        <a id="retryPayment" class="btn btn-primary" href="/">
+          Spróbuj ponownie
+        </a>
+        <a class="btn btn-secondary" href={publicSite.contactMailto}>
+          Napisz do nas
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script is:inline>
+    const retryLink = document.getElementById("retryPayment");
+    const productId = sessionStorage.getItem("cm_product_id");
+
+    if (retryLink && productId && /^[a-z0-9][a-z0-9-_]{0,63}$/i.test(productId)) {
+      retryLink.href = `/produkty/${encodeURIComponent(productId)}`;
+    }
+  </script>
+</BaseLayout>

@@ -1,13 +1,20 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { publicSite } from "../config/publicSite";
-const email = "";
 ---
 
 <BaseLayout
   title="Dziękujemy — Czytelnia Malucha"
   description="Płatność została rozpoczęta lub zakończona."
 >
+  <script>
+    import { hasPaymentFailure } from "../lib/paymentReturn.mjs";
+
+    if (hasPaymentFailure(window.location.search)) {
+      window.location.replace("/platnosc-nieudana");
+    }
+  </script>
+
   <main class="container" style="padding:48px 0;max-width:860px;">
     <div class="card" style="padding:22px;">
       <div class="kicker">Dziękujemy</div>
@@ -16,7 +23,7 @@ const email = "";
       </h1>
 
       <p class="muted" style="max-width:70ch;">
-        Zwykle przychodzi w ciągu kilku minut. Link będzie ważny 12 godzin.
+        Zwykle przychodzi w ciągu kilku minut. Link będzie ważny przez 7 dni.
       </p>
 
       <div

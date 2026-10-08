@@ -196,6 +196,7 @@ const checkoutEndpoint = publicApi.checkoutEndpoint;
       }
 
       checkoutStorage.setItem("cm_email", email);
+      checkoutStorage.setItem("cm_product_id", productId);
 
       payBtn.textContent = "Przekierowuję do PayU…";
       window.location.href = data.redirectUri;

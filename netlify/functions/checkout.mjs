@@ -14,14 +14,13 @@ const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const productIdPattern = /^[a-z0-9][a-z0-9-_]{0,63}$/i;
 
 function response(statusCode, body, extraHeaders = {}) {
-  return {
-    statusCode,
+  return new Response(JSON.stringify(body), {
+    status: statusCode,
     headers: {
       ...jsonHeaders,
       ...extraHeaders,
     },
-    body: JSON.stringify(body),
-  };
+  });
 }
 
 function normalizeApiBase(value) {
@@ -29,11 +28,9 @@ function normalizeApiBase(value) {
   return url.toString().replace(/\/$/, "");
 }
 
-function parsePayload(rawBody) {
-  if (!rawBody) return null;
-
+async function parsePayload(request) {
   try {
-    return JSON.parse(rawBody);
+    return await request.json();
   } catch {
     return null;
   }
@@ -98,7 +95,7 @@ function sanitizeCheckoutResponse(data) {
 }
 
 export default async (request) => {
-  if (request.httpMethod !== "POST") {
+  if (request.method !== "POST") {
     return response(405, { message: "Method Not Allowed" }, { Allow: "POST" });
   }
 
@@ -108,7 +105,7 @@ export default async (request) => {
     });
   }
 
-  const payload = parsePayload(request.body);
+  const payload = await parsePayload(request);
   if (payload === null) {
     return response(400, {
       message: "Nieprawidlowy format danych.",

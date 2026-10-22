@@ -1,7 +1,7 @@
 const env = import.meta.env;
 
-const siteUrl = env.PUBLIC_SITE_URL ?? "https://www.czytelniamalucha.pl";
-const siteHost = env.PUBLIC_SITE_HOST ?? "www.czytelniamalucha.pl";
+const siteUrl = env.PUBLIC_SITE_URL ?? "https://czytelniamalucha.pl";
+const siteHost = env.PUBLIC_SITE_HOST ?? "czytelniamalucha.pl";
 const businessName = env.PUBLIC_BUSINESS_NAME ?? "[uzupełnij nazwę sprzedawcy]";
 const businessNip = env.PUBLIC_BUSINESS_NIP ?? "[uzupełnij NIP]";
 const businessAddress =
